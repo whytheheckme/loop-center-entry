@@ -1,0 +1,24 @@
+{
+ "idnum": 3221,
+ "fields": {
+  "Title": "Antec Outside Gaming PC",
+  "Description": "Tower PC. ASUS A7V Motherboard with AMD Athlon CPU, 2x256MB RAM. With Creative Labs GB0010, Creative Sound Blaster Liver! SB0060 sound card, 10/100 NIC, Wifi card, USB headers, 3x IDE hard drives, Yamaha CD-RW drive, 3.5\" FD, and Creative Live! Driver IR for the sound card. Also has serial 3 button mouse and CD taped to the top.",
+  "Creator": "Antec",
+  "Created": "~2000",
+  "ItemCondition": "g",
+  "Dimensions": "H 21, W 8, D 19",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-25T21:43:58.859Z",
+  "type": "hardware",
+  "updated": "2026-08-25T21:43:58.859Z"
+ }
+}
