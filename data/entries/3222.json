@@ -1,0 +1,27 @@
+{
+ "idnum": 3222,
+ "fields": {
+  "Title": "Athlon 64 Blade PC",
+  "Description": "2U Blade PC, ASUS M2A-VM Motherboard, Athlon 64 (?) CPU, 4x 2GB DDR2 RAM, 2x 500GB HD, DVD-RW, Intel 10/100/1000 NIC. Has an unknown license key USB hanging off the back.",
+  "Created": "~2007",
+  "ItemCondition": "g",
+  "Functional": "u",
+  "Fragility": "d",
+  "Color": "Black",
+  "Material": "mp",
+  "Dimensions": "H 3.5, W 17, D 21",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-25T21:52:36.430Z",
+  "type": "hardware",
+  "updated": "2026-08-25T21:52:36.430Z"
+ }
+}
