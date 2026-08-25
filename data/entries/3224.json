@@ -1,0 +1,27 @@
+{
+ "idnum": 3224,
+ "fields": {
+  "Title": "AM2+ Custom PC",
+  "Description": "Custom PC Mini-tower, BIOSTAR MCP6P M2+ motherboard, 3HDD, unknown CPU and RAM. 10/100/1000 NIC",
+  "Created": "~2009",
+  "ItemCondition": "f",
+  "Functional": "u",
+  "ConditionNts": "Case is scratched",
+  "Fragility": "d",
+  "Color": "black",
+  "Dimensions": "H 17, W 8, D 19",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-25T22:07:33.321Z",
+  "type": "hardware",
+  "updated": "2026-08-25T22:07:33.321Z"
+ }
+}
