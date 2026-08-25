@@ -1,0 +1,28 @@
+{
+ "idnum": 3215,
+ "fields": {
+  "Title": "Pentium 1 Desktop PC",
+  "Description": "Generic case Pentium, Samsung 8.4GB HD",
+  "Created": "1994",
+  "ItemCondition": "f",
+  "Functional": "u",
+  "ConditionNts": "Corrosion on the back of the case, inside looks clean",
+  "Fragility": "d",
+  "Color": "beige",
+  "Material": "mix",
+  "Dimensions": "H 13, W 7, D 16",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-25T20:40:57.718Z",
+  "type": "hardware",
+  "updated": "2026-08-25T20:40:57.718Z"
+ }
+}
