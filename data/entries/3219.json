@@ -10,7 +10,7 @@
   "SerialNum": "103752",
   "ItemCondition": "p",
   "Functional": "u",
-  "ConditionNts": "Keys won't stay attached, case is very dirty and damaged in some locations",
+  "ConditionNts": "Keys won't stay attached, case is very dirty and damaged in some locations, missing many keys",
   "Fragility": "f",
   "Color": "grey",
   "Material": "mix",
@@ -27,6 +27,6 @@
  "_meta": {
   "created": "2026-08-25T21:08:56.403Z",
   "type": "hardware",
-  "updated": "2026-08-25T21:08:56.403Z"
+  "updated": "2026-08-25T21:14:56.471Z"
  }
 }
