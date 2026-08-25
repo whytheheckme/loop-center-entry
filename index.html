@@ -95,6 +95,28 @@
   .modal .btns{display:flex;gap:10px}
   .modal .btns button{flex:1}
 
+  /* photos */
+  .photohead{display:flex;align-items:center;gap:10px;margin:4px 0 12px}
+  .photohead .back{background:#fff;border:1px solid var(--line);border-radius:8px;padding:8px 12px;
+      font-size:14px;cursor:pointer}
+  .photohead .t{font-weight:700;font-size:15px;flex:1;min-width:0;overflow:hidden;
+      text-overflow:ellipsis;white-space:nowrap}
+  .photogrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+  .ph{position:relative;aspect-ratio:1;border-radius:8px;overflow:hidden;background:#e6e9ee;
+      border:1px solid var(--line)}
+  .ph img{width:100%;height:100%;object-fit:cover;display:block}
+  .ph .del{position:absolute;top:4px;right:4px;width:26px;height:26px;border-radius:99px;
+      background:rgba(15,20,28,.65);color:#fff;border:0;font-size:15px;line-height:1;cursor:pointer;
+      display:flex;align-items:center;justify-content:center}
+  .ph .tag{position:absolute;left:4px;bottom:4px;font-size:10px;font-weight:700;color:#fff;
+      background:rgba(15,20,28,.55);border-radius:6px;padding:2px 6px}
+  .ph.pending{outline:2px solid var(--accent);outline-offset:-2px}
+  .photobtns{display:flex;gap:10px;margin-bottom:12px}
+  .photobtns button{flex:1;background:#fff;border:1px solid var(--line);border-radius:10px;
+      font-size:15px;font-weight:600;padding:13px 8px;cursor:pointer}
+  .photocount{font-size:12px;font-weight:700;color:var(--blue);background:#e7eef9;
+      border-radius:99px;padding:2px 9px;margin-left:8px;float:right}
+  .photocount.none{color:var(--muted);background:var(--bg)}
   pre.sqlbox{background:#101418;color:#d8e2ec;font-size:11.5px;border-radius:8px;padding:12px;
       overflow-x:auto;max-height:300px;white-space:pre;line-height:1.5}
   .kpi{display:flex;gap:10px;margin-bottom:10px}
@@ -353,6 +375,32 @@
   <div id="recentList"></div>
 </div>
 
+<!-- ============ PHOTOS VIEW ============ -->
+<div class="view" id="view-photos">
+  <h2>Photos — pick an item</h2>
+  <div class="status" id="photosStatus"></div>
+  <div id="photosList"></div>
+</div>
+
+<!-- ============ PHOTO ITEM VIEW ============ -->
+<div class="view" id="view-photoitem">
+  <div class="photohead">
+    <button class="back" id="photoBack">‹ Back</button>
+    <div class="t" id="photoItemTitle"></div>
+  </div>
+  <div class="status" id="photoStatus"></div>
+  <div class="photogrid" id="photoGrid"></div>
+  <div class="photobtns">
+    <button id="btnTakePhoto">📷 Take photo</button>
+    <button id="btnPickPhoto">🖼 From library</button>
+  </div>
+  <button class="primary" id="btnSavePhotos" style="width:100%" disabled>Save photos</button>
+  <div class="note" style="margin-top:10px">Photos are saved to the repo's <code>repository/</code> folder as
+    <span id="photoNamingExample"></span>, and the item's URI &amp; StillImage fields are updated automatically.</div>
+  <input type="file" id="cameraInput" accept="image/*" capture="environment" style="display:none">
+  <input type="file" id="libraryInput" accept="image/*" multiple style="display:none">
+</div>
+
 <!-- ============ EXPORT VIEW ============ -->
 <div class="view" id="view-export">
   <h2>Export for upload</h2>
@@ -410,6 +458,7 @@
 <nav>
   <button data-view="entry" class="active"><span class="ico">✏️</span>New entry</button>
   <button data-view="recent"><span class="ico">🗂</span>Batch</button>
+  <button data-view="photos"><span class="ico">📷</span>Photos</button>
   <button data-view="export"><span class="ico">⬆️</span>Export</button>
   <button data-view="settings"><span class="ico">⚙️</span>Settings</button>
 </nav>
@@ -578,6 +627,12 @@ async function saveEntry(){
   btn.disabled = true; btn.innerHTML = '<span class="spin">↻</span> Saving…';
   try{
     if(editing.id){
+      // preserve fields the form doesn't manage (URI, StillImage photo array, etc.)
+      const prev = editing.existingFields || {};
+      Object.keys(prev).forEach(k => {
+        if(!FORM_FIELDS.includes(k) && fields[k] === undefined) fields[k] = prev[k];
+      });
+      if(Array.isArray(prev.StillImage)) fields.StillImage = prev.StillImage;
       const data = wrapEntry(editing.id, fields, editing.existingMeta);
       await putEntry(editing.id, data, editing.sha, "Update entry " + editing.id + ": " + fields.Title);
       afterSaved(editing.id, fields);
@@ -666,6 +721,7 @@ async function editEntry(id){
     setStatus("recentStatus",'<span class="spin">↻</span> Opening #' + id + "…","busy");
     const { sha, data } = await getEntry(id);
     editing.id = id; editing.sha = sha; editing.existingMeta = data._meta || null;
+    editing.existingFields = data.fields || {};
     fillForm(data.fields || {});
     $("editBannerId").textContent = "#" + id;
     $("editBanner").style.display = "block";
@@ -679,6 +735,238 @@ async function editEntry(id){
   }
 }
 
+/* ================= photos ================= */
+const REPO_DIR = "repository";
+const PUBLIC_BASE = "https://www.loopcntr.net/repository/";
+const photo = { itemId:null, itemTitle:"", saved:[], pending:[], busy:false };
+
+function photoName(id, slot){ return slot === 1 ? id + ".jpg" : id + "-" + slot + ".jpg"; }
+function photoSlot(id, name){
+  if(name === id + ".jpg") return 1;
+  const m = name.match(new RegExp("^" + id + "-(\\d+)\\.jpg$"));
+  return m ? parseInt(m[1]) : null;
+}
+function rawUrl(name){
+  return "https://raw.githubusercontent.com/" + cfg.owner + "/" + cfg.repo + "/" + cfg.branch +
+         "/" + REPO_DIR + "/" + encodeURIComponent(name);
+}
+async function listRepoDir(){
+  const list = await gh(repoPath(REPO_DIR) + "?ref=" + cfg.branch, {allow404:true});
+  return (list && Array.isArray(list)) ? list : [];
+}
+function photosOf(dirList, id){
+  return dirList.map(f => ({name:f.name, sha:f.sha, slot:photoSlot(id, f.name)}))
+                .filter(p => p.slot !== null)
+                .sort((a,b) => a.slot - b.slot);
+}
+
+/* --- resize/compress captured images --- */
+async function processImage(file){
+  let bmp;
+  try{ bmp = await createImageBitmap(file, {imageOrientation:"from-image"}); }
+  catch(e){ bmp = await createImageBitmap(file); }
+  const MAX = 2000;
+  const scale = Math.min(1, MAX / Math.max(bmp.width, bmp.height));
+  const w = Math.round(bmp.width * scale), h = Math.round(bmp.height * scale);
+  const canvas = document.createElement("canvas");
+  canvas.width = w; canvas.height = h;
+  canvas.getContext("2d").drawImage(bmp, 0, 0, w, h);
+  const blob = await new Promise(res => canvas.toBlob(res, "image/jpeg", 0.85));
+  return blob || file;
+}
+function blobToB64(blob){
+  return new Promise((res, rej) => {
+    const r = new FileReader();
+    r.onload = () => res(String(r.result).split(",")[1]);
+    r.onerror = rej;
+    r.readAsDataURL(blob);
+  });
+}
+
+/* --- photos list view --- */
+async function renderPhotoList(){
+  const box = $("photosList");
+  if(!configured()){
+    setStatus("photosStatus","Open <b>Settings</b> to connect to GitHub first.","err");
+    box.innerHTML = ""; return;
+  }
+  setStatus("photosStatus",'<span class="spin">↻</span> Loading…',"busy");
+  try{
+    const [files, dirList] = await Promise.all([listEntryFiles(), listRepoDir()]);
+    if(!files.length){
+      setStatus("photosStatus","No entries yet — add items on the New entry tab first.","ok");
+      box.innerHTML = ""; return;
+    }
+    const loaded = await Promise.all(files.slice(0, 50).map(f =>
+      getEntry(f.id).then(e => ({f, e})).catch(() => null)));
+    clearStatus("photosStatus");
+    box.innerHTML = loaded.filter(Boolean).map(({f, e}) => {
+      const fl = e.data.fields || {};
+      const n = photosOf(dirList, f.id).length;
+      const chip = n ? '<span class="photocount">📷 ' + n + '</span>'
+                     : '<span class="photocount none">no photos</span>';
+      return '<div class="card entrycard" data-pid="' + f.id + '" data-ptitle="' + esc(fl.Title || "") + '">' +
+        chip + '<div class="t">#' + f.id + ' — ' + esc(fl.Title || "(untitled)") + '</div>' +
+        '<div class="m">' + esc([fl.ModelNum, fl.SerialNum].filter(Boolean).join(" · ")) + '</div></div>';
+    }).join("");
+    box.querySelectorAll(".entrycard").forEach(el =>
+      el.addEventListener("click", () => openPhotoItem(parseInt(el.dataset.pid), el.dataset.ptitle)));
+  }catch(e){
+    setStatus("photosStatus","Could not load: " + esc(e.message),"err");
+  }
+}
+
+/* --- per-item photo grid --- */
+async function openPhotoItem(id, title){
+  photo.itemId = id; photo.itemTitle = title || "";
+  photo.pending.forEach(p => URL.revokeObjectURL(p.url));
+  photo.pending = []; photo.saved = [];
+  $("photoItemTitle").textContent = "#" + id + " — " + (title || "");
+  $("photoNamingExample").innerHTML = "<code>" + id + ".jpg</code>, <code>" + id + "-2.jpg</code>…";
+  switchView("photoitem");
+  setStatus("photoStatus",'<span class="spin">↻</span> Loading photos…',"busy");
+  try{
+    const dirList = await listRepoDir();
+    photo.saved = photosOf(dirList, id);
+    clearStatus("photoStatus");
+  }catch(e){
+    setStatus("photoStatus","Could not load photos: " + esc(e.message),"err");
+  }
+  renderPhotoGrid();
+}
+function renderPhotoGrid(){
+  const g = $("photoGrid");
+  const savedHtml = photo.saved.map(p =>
+    '<div class="ph"><img src="' + rawUrl(p.name) + '" alt="">' +
+    '<button class="del" data-del-saved="' + p.name + '">✕</button>' +
+    '<span class="tag">' + p.name + '</span></div>').join("");
+  const pendHtml = photo.pending.map((p, i) =>
+    '<div class="ph pending"><img src="' + p.url + '" alt="">' +
+    '<button class="del" data-del-pending="' + i + '">✕</button>' +
+    '<span class="tag">new</span></div>').join("");
+  g.innerHTML = savedHtml + pendHtml ||
+    '<div class="note" style="grid-column:1/-1">No photos yet — take the first one.</div>';
+  g.querySelectorAll("[data-del-pending]").forEach(b => b.addEventListener("click", () => {
+    const i = parseInt(b.dataset.delPending);
+    URL.revokeObjectURL(photo.pending[i].url);
+    photo.pending.splice(i, 1);
+    renderPhotoGrid();
+  }));
+  g.querySelectorAll("[data-del-saved]").forEach(b => b.addEventListener("click", () => deleteSavedPhoto(b.dataset.delSaved)));
+  $("btnSavePhotos").disabled = photo.pending.length === 0 || photo.busy;
+  $("btnSavePhotos").textContent = photo.pending.length
+    ? "Save " + photo.pending.length + " photo" + (photo.pending.length > 1 ? "s" : "")
+    : "Save photos";
+}
+async function addFiles(fileList){
+  if(!fileList || !fileList.length) return;
+  setStatus("photoStatus",'<span class="spin">↻</span> Processing…',"busy");
+  for(const f of Array.from(fileList)){
+    try{
+      const blob = await processImage(f);
+      photo.pending.push({ blob, url: URL.createObjectURL(blob) });
+    }catch(e){
+      setStatus("photoStatus","Could not read an image: " + esc(e.message),"err");
+    }
+  }
+  clearStatus("photoStatus");
+  renderPhotoGrid();
+}
+$("btnTakePhoto").addEventListener("click", () => $("cameraInput").click());
+$("btnPickPhoto").addEventListener("click", () => $("libraryInput").click());
+$("cameraInput").addEventListener("change", e => { addFiles(e.target.files); e.target.value = ""; });
+$("libraryInput").addEventListener("change", e => { addFiles(e.target.files); e.target.value = ""; });
+$("photoBack").addEventListener("click", () => {
+  if(photo.pending.length && !window.confirm("Discard " + photo.pending.length + " unsaved photo(s)?")) return;
+  photo.pending.forEach(p => URL.revokeObjectURL(p.url));
+  photo.pending = [];
+  switchView("photos");
+});
+
+async function savePhotos(){
+  if(!photo.pending.length || photo.busy) return;
+  photo.busy = true;
+  const btn = $("btnSavePhotos");
+  btn.disabled = true; btn.innerHTML = '<span class="spin">↻</span> Uploading…';
+  const id = photo.itemId;
+  try{
+    for(const p of photo.pending.slice()){
+      // recompute used slots each time (multi-device safe); fill lowest gap
+      const used = new Set(photo.saved.map(s => s.slot));
+      let slot = 1;
+      while(used.has(slot)) slot++;
+      let name = photoName(id, slot);
+      const b64 = await blobToB64(p.blob);
+      let done = false, tries = 0;
+      while(!done){
+        try{
+          const res = await gh(repoPath(REPO_DIR + "/" + name), { method:"PUT",
+            body:{ message:"Photo " + name + " for entry " + id, branch:cfg.branch, content:b64 } });
+          photo.saved.push({ name, sha: res.content.sha, slot });
+          done = true;
+        }catch(e){
+          if((e.status === 422 || e.status === 409) && tries < 6){
+            tries++; slot++;
+            while(photo.saved.some(s => s.slot === slot)) slot++;
+            name = photoName(id, slot);
+          } else throw e;
+        }
+      }
+      URL.revokeObjectURL(p.url);
+      photo.pending.shift();
+      renderPhotoGrid();
+    }
+    photo.saved.sort((a,b) => a.slot - b.slot);
+    await updateEntryPhotoFields(id);
+    setStatus("photoStatus","Saved ✓ — " + photo.saved.length + " photo(s) on record, URI and StillImage updated.","ok");
+  }catch(e){
+    setStatus("photoStatus","Upload failed: " + esc(e.message) + " — unsaved photos are still here, try Save again.","err");
+  }finally{
+    photo.busy = false;
+    renderPhotoGrid();
+  }
+}
+$("btnSavePhotos").addEventListener("click", savePhotos);
+
+async function deleteSavedPhoto(name){
+  if(photo.busy) return;
+  if(!window.confirm("Delete " + name + " permanently?")) return;
+  const p = photo.saved.find(s => s.name === name);
+  if(!p) return;
+  photo.busy = true;
+  setStatus("photoStatus",'<span class="spin">↻</span> Deleting…',"busy");
+  try{
+    await gh(repoPath(REPO_DIR + "/" + name), { method:"DELETE",
+      body:{ message:"Delete photo " + name, branch:cfg.branch, sha:p.sha } });
+    photo.saved = photo.saved.filter(s => s.name !== name);
+    await updateEntryPhotoFields(photo.itemId);
+    setStatus("photoStatus","Deleted " + name + ".","ok");
+  }catch(e){
+    setStatus("photoStatus","Delete failed: " + esc(e.message),"err");
+  }finally{
+    photo.busy = false;
+    renderPhotoGrid();
+  }
+}
+
+async function updateEntryPhotoFields(id){
+  const { sha, data } = await getEntry(id);
+  data.fields = data.fields || {};
+  const urls = photo.saved.map(p => PUBLIC_BASE + p.name);
+  const ourUriRe = new RegExp("^" + PUBLIC_BASE.replace(/[.*+?^${}()|[\]\\/]/g, "\\$&") + id + "(-\\d+)?\\.jpg$");
+  if(urls.length){
+    data.fields.StillImage = urls;
+    if(!data.fields.URI || ourUriRe.test(data.fields.URI)) data.fields.URI = urls[0];
+  } else {
+    if(Array.isArray(data.fields.StillImage)) delete data.fields.StillImage;
+    if(data.fields.URI && ourUriRe.test(data.fields.URI)) delete data.fields.URI;
+  }
+  data._meta = data._meta || {};
+  data._meta.updated = new Date().toISOString();
+  await putEntry(id, data, sha, "Update photo fields for entry " + id);
+  cachedFiles = null;
+}
+
 /* ================= export ================= */
 function sqlEscape(v){
   return "'" + String(v).replace(/\\/g,"\\\\").replace(/'/g,"\\'")
@@ -688,6 +976,7 @@ function rowToSql(entry){
   const f = entry.fields || {};
   const vals = COLUMNS.map(c => {
     let v = (c === "IdNum") ? entry.idnum : f[c];
+    if(Array.isArray(v)) v = v.join(", ");
     if(v === undefined || v === null || String(v).trim() === "") return "NULL";
     if(NUMERIC.has(c)){
       const n = parseInt(v, 10);
@@ -716,12 +1005,18 @@ async function buildSql(){
       entries.push(...chunk);
     }
     entries.sort((a,b) => a.idnum - b.idnum);
+    const hasPhotoArrays = entries.some(e => Array.isArray((e.fields || {}).StillImage));
+    const alterNote = hasPhotoArrays
+      ? "-- NOTE: some rows carry a list of photo URLs in StillImage (repurposed field).\n" +
+        "-- The live table defines StillImage as char(1); widen it BEFORE running this insert:\n" +
+        "--   ALTER TABLE `catalog` MODIFY `StillImage` VARCHAR(2000) DEFAULT NULL;\n\n"
+      : "";
     const header = "-- LO*OP Center shadow-database export\n" +
       "-- Generated " + new Date().toISOString() + "  (" + entries.length + " entries, IdNum " +
       entries[0].idnum + "–" + entries[entries.length-1].idnum + ")\n" +
       "-- Paste into phpMyAdmin → SQL tab of lizaloop_HCLEcatalog\n\n" +
       "INSERT INTO `catalog` (" + COLUMNS.map(c => "`"+c+"`").join(", ") + ") VALUES\n";
-    builtSql = header + entries.map(rowToSql).join(",\n") + ";\n";
+    builtSql = alterNote + header + entries.map(rowToSql).join(",\n") + ";\n";
     $("expCount").textContent = entries.length;
     $("expRange").textContent = entries[0].idnum + "–" + entries[entries.length-1].idnum;
     $("sqlOut").textContent = builtSql;
@@ -744,6 +1039,8 @@ function switchView(name){
     b.classList.toggle("active", b.dataset.view === name));
   $("actionbar").style.display = (name === "entry") ? "block" : "none";
   if(name === "recent") renderRecent();
+  if(name === "photos") renderPhotoList();
+  if(name === "photoitem") document.querySelector('nav button[data-view="photos"]').classList.add("active");
   if(name === "export"){ $("expCount").textContent = cachedFiles ? cachedFiles.length : "–"; }
   if(name === "settings") loadSettingsForm();
 }
