@@ -1,0 +1,32 @@
+{
+ "idnum": 3219,
+ "fields": {
+  "Title": "Hazeltine 1500",
+  "Description": "\"Smart\" Computer Terminal",
+  "Creator": "Hazeltine Corporation",
+  "WherMade": "Greenlawn, NY",
+  "Created": "~1977",
+  "ModelNum": "1500",
+  "SerialNum": "103752",
+  "ItemCondition": "p",
+  "Functional": "u",
+  "ConditionNts": "Keys won't stay attached, case is very dirty and damaged in some locations",
+  "Fragility": "f",
+  "Color": "grey",
+  "Material": "mix",
+  "Dimensions": "H 14, W 15, D 21",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-25T21:08:56.403Z",
+  "type": "hardware",
+  "updated": "2026-08-25T21:08:56.403Z"
+ }
+}
