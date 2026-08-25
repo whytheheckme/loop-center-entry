@@ -18,13 +18,19 @@
   "Type": "1",
   "MediaType": "9",
   "ItemType": "0",
-  "StillImage": "n",
+  "StillImage": [
+   "https://www.loopcntr.net/repository/3210.jpg",
+   "https://www.loopcntr.net/repository/3210-2.jpg",
+   "https://www.loopcntr.net/repository/3210-3.jpg",
+   "https://www.loopcntr.net/repository/3210-4.jpg"
+  ],
   "MovingImage": "n",
-  "CatBy": "jk"
+  "CatBy": "jk",
+  "URI": "https://www.loopcntr.net/repository/3210.jpg"
  },
  "_meta": {
   "created": "2026-08-25T19:53:04.059Z",
   "type": "hardware",
-  "updated": "2026-08-25T19:53:04.059Z"
+  "updated": "2026-08-25T19:56:58.994Z"
  }
 }
