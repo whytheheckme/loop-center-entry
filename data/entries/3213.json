@@ -1,0 +1,28 @@
+{
+ "idnum": 3213,
+ "fields": {
+  "Title": "486 Desktop PC",
+  "Description": "Generic case 486, note says: Cyrex CX486DX2 (50), 8MB RAM, 261MB HD",
+  "Created": "~1993",
+  "ItemCondition": "f",
+  "Functional": "u",
+  "ConditionNts": "5.25\" bay cover popped off with power switch hanging out the front, plastics are marked but in not too bad of condition otherwise. No branding",
+  "Fragility": "d",
+  "Color": "grey",
+  "Material": "mix",
+  "Dimensions": "H 13, W 7, D 16",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-25T20:25:00.956Z",
+  "type": "hardware",
+  "updated": "2026-08-25T20:25:00.956Z"
+ }
+}
