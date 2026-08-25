@@ -1,0 +1,32 @@
+{
+ "idnum": 3211,
+ "fields": {
+  "Title": "Hewlett Packard Vectra 486/33M",
+  "Description": "486 Desktop PC, with 3.5\" Floppy, CD-ROM drive, Sound carde and ethernet NIC",
+  "Creator": "Hewlett Packard",
+  "Created": "1993-1994",
+  "ModelNum": "D2872A",
+  "SerialNum": "3339S01245",
+  "ConformsTo": "FCC ID: B94VECTRA486-XXMI",
+  "ItemCondition": "f",
+  "Functional": "u",
+  "ConditionNts": "Minor scratches, drive bay isn't seating correctly",
+  "Fragility": "d",
+  "Power": "Yes",
+  "Color": "Beige",
+  "Material": "mix",
+  "Dimensions": "H 5, W 16.5, D 15.5",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-25T20:08:08.894Z",
+  "type": "hardware",
+  "updated": "2026-08-25T20:08:08.894Z"
+ }
+}
