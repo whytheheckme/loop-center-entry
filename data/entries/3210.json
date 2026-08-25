@@ -4,6 +4,7 @@
   "Title": "Dell Dimension XPS T600r",
   "Description": "Pentium 3 Tower PC",
   "Creator": "Dell",
+  "Created": "~1999",
   "ModelNum": "Dimension XPS T600r",
   "PartNum": "Service Tag 2S5UH",
   "OtherNum": "Express Service Code 46-731-77",
@@ -32,6 +33,6 @@
  "_meta": {
   "created": "2026-08-25T19:53:04.059Z",
   "type": "hardware",
-  "updated": "2026-08-25T19:59:00.179Z"
+  "updated": "2026-08-25T20:04:24.822Z"
  }
 }
