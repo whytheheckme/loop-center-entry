@@ -1,0 +1,30 @@
+{
+ "idnum": 3230,
+ "fields": {
+  "Title": "Cassidy Decision Maker Series (IBM PC XT Clone)",
+  "Description": "Cassidy Computer & Peripherals from Sunnyvale, CA - made PC XT Clone",
+  "Creator": "Cassidy Computer & Peripherals",
+  "WherMade": "USA",
+  "ModelNum": "DMS-28C CPU",
+  "SerialNum": "7090035029",
+  "ItemCondition": "vg",
+  "Functional": "u",
+  "ConditionNts": "Just needs a clean, looks great otherwise",
+  "Fragility": "d",
+  "Color": "beige",
+  "Dimensions": "H 5, W 19, D 17",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-25T23:04:18.570Z",
+  "type": "hardware",
+  "updated": "2026-08-25T23:04:18.570Z"
+ }
+}
