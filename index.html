@@ -77,6 +77,8 @@
       border-radius:8px;font-size:13px;font-weight:600;color:var(--blue);padding:6px 12px;
       cursor:pointer;font-family:inherit}
   .similarbtn:active{background:#e7eef9}
+  .estchip{float:right;clear:right;font-size:11.5px;font-weight:700;color:#7a5b00;background:#fff3cd;
+      border-radius:99px;padding:2px 9px;margin:4px 0 0 8px}
   .entrycard .t{font-weight:650;font-size:15px}
   .entrycard .m{font-size:12.5px;color:var(--muted);margin-top:3px}
   .idchip{float:right;font-size:12px;font-weight:700;color:var(--blue);background:#e7eef9;
@@ -459,6 +461,16 @@
     </div>
     <div class="status" id="settingsStatus"></div>
   </div>
+
+  <div class="card" style="margin-top:12px">
+    <div style="font-weight:700;font-size:15px;margin-bottom:6px">Valuations</div>
+    <div class="note" id="valSummary" style="margin-bottom:10px">–</div>
+    <button class="primary" id="btnQueueVal" style="width:100%">Queue new items for valuation</button>
+    <div class="status" id="valStatus"></div>
+    <div class="note" style="margin-top:10px">Estimates are internal only — they live in
+      <code>data/valuations.json</code> and are never included in the SQL export to Liza's database.
+      Queued items are researched and priced on Claude's next valuation run.</div>
+  </div>
 </div>
 
 </div><!-- /wrap -->
@@ -580,6 +592,25 @@ function loadBase(){
   }
   return basePromise;
 }
+/* valuations: internal estimates, stored in data/valuations.json — NEVER exported to Liza's DB */
+let valPromise = null, VALS = {};
+function loadValuations(){
+  if(!valPromise){
+    valPromise = fetch("data/valuations.json", {cache:"no-cache"})
+      .then(r => { if(!r.ok) throw new Error("valuations " + r.status); return r.json(); })
+      .then(v => { VALS = v.items || {}; return v; })
+      .catch(e => { valPromise = null; return { _meta:{}, items:{} }; });
+  }
+  return valPromise;
+}
+function estChip(id){
+  const v = VALS[String(id)];
+  if(!v || (!v.low && !v.high)) return "";
+  const money = n => n >= 1000 ? "$" + (n/1000).toFixed(n % 1000 ? 1 : 0) + "k" : "$" + n;
+  const warn = v.basis === "appraisal" ? " ⚑" : "";
+  return '<span class="estchip" title="' + esc(v.note || "") + '">est. ' + money(v.low) + "–" + money(v.high) + warn + '</span>';
+}
+
 /* one item, override-aware: data/entries/<id>.json beats base.json */
 async function getItemRecord(id){
   try{
@@ -789,7 +820,7 @@ function hitCard(h, extra, withSimilar){
               : h.changed ? '<span class="idchip">edited #' + h.id + '</span>'
               : '<span class="idchip" style="color:var(--muted);background:var(--bg)">#' + h.id + '</span>';
   return '<div class="card entrycard" data-id="' + h.id + '" data-title="' + esc(h.title || "") + '">' +
-    (extra || "") + badge +
+    (extra || "") + badge + estChip(h.id) +
     '<div class="t">' + esc(h.title || "(untitled)") + '</div>' +
     '<div class="m">' + esc(h.sub || "") + '</div>' +
     (withSimilar ? '<button class="similarbtn" data-sim="' + h.id + '">⧉ New similar</button>' : "") +
@@ -831,6 +862,7 @@ async function renderRecent(){
   const q = $("recentSearch").value.trim();
   setStatus("recentStatus",'<span class="spin">↻</span> Loading…',"busy");
   try{
+    await loadValuations();
     if(q){
       const hits = await searchMerged(q);
       clearStatus("recentStatus");
@@ -971,6 +1003,7 @@ async function renderPhotoList(){
   const q = $("photoSearch").value.trim();
   setStatus("photosStatus",'<span class="spin">↻</span> Loading…',"busy");
   try{
+    await loadValuations();
     const dirList = await listRepoDir();
     const countChip = id => {
       const n = photosOf(dirList, id).length;
@@ -1270,7 +1303,7 @@ function switchView(name){
   if(name === "photos") renderPhotoList();
   if(name === "photoitem") document.querySelector('nav button[data-view="photos"]').classList.add("active");
   if(name === "export"){ $("expCount").textContent = cachedFiles ? cachedFiles.length : "–"; }
-  if(name === "settings") loadSettingsForm();
+  if(name === "settings"){ loadSettingsForm(); refreshValSummary(); }
 }
 document.querySelectorAll("nav button").forEach(b =>
   b.addEventListener("click", () => switchView(b.dataset.view)));
@@ -1317,6 +1350,61 @@ $("btnTest").addEventListener("click", async () => {
     setStatus("settingsStatus","Connected ✓ — repo reachable, " + files.length + " entries in the batch.","ok");
   }catch(e){
     setStatus("settingsStatus","Connection failed: " + esc(e.message),"err");
+  }
+});
+
+/* valuations settings */
+async function refreshValSummary(){
+  try{
+    const [val, base, files] = await Promise.all([loadValuations(), loadBase(), configured() ? listEntryFiles() : []]);
+    const ids = new Set(Object.keys(base.items).map(Number));
+    files.forEach(f => ids.add(f.id));
+    const missing = Array.from(ids).filter(id => !val.items || !val.items[String(id)]);
+    let lo = 0, hi = 0;
+    Object.values(val.items || {}).forEach(v => { lo += v.low; hi += v.high; });
+    const money = n => n >= 1000 ? "$" + Math.round(n/1000) + "k" : "$" + n;
+    $("valSummary").innerHTML = (Object.keys(val.items || {}).length) +
+      " items have estimates (total ~" + money(lo) + "–" + money(hi) + "). " +
+      (missing.length ? "<b>" + missing.length + " item" + (missing.length > 1 ? "s" : "") + " not yet valued.</b>"
+                      : "Everything currently in the system is valued.");
+    return missing;
+  }catch(e){
+    $("valSummary").textContent = "Could not load valuation data: " + e.message;
+    return [];
+  }
+}
+$("btnQueueVal").addEventListener("click", async () => {
+  if(!configured()){ setStatus("valStatus","Connect to GitHub first (above).","err"); return; }
+  const btn = $("btnQueueVal");
+  btn.disabled = true;
+  setStatus("valStatus",'<span class="spin">↻</span> Checking…',"busy");
+  try{
+    const missing = await refreshValSummary();
+    const path = "data/valuation_requests.json";
+    let sha = null, existing = { requests: [] };
+    try{
+      const f = await gh(repoPath(path) + "?ref=" + cfg.branch);
+      sha = f.sha;
+      existing = JSON.parse(b64decode(f.content));
+    }catch(e){ if(e.status !== 404) throw e; }
+    const already = new Set((existing.requests || []).map(r => r.id));
+    const fresh = missing.filter(id => !already.has(id));
+    if(!missing.length){
+      setStatus("valStatus","Nothing to queue — every item already has an estimate.","ok");
+      return;
+    }
+    existing.requests = (existing.requests || []).concat(fresh.map(id => ({ id, queued: new Date().toISOString() })));
+    existing.updated = new Date().toISOString();
+    await gh(repoPath(path), { method:"PUT", body:{
+      message: "Queue " + fresh.length + " item(s) for valuation",
+      branch: cfg.branch, sha: sha || undefined,
+      content: b64encode(JSON.stringify(existing, null, 1)) } });
+    setStatus("valStatus","Queued ✓ — " + missing.length + " item(s) waiting for the next valuation run. " +
+      "Claude checks the queue weekly, or ask Claude to run valuations now.","ok");
+  }catch(e){
+    setStatus("valStatus","Could not queue: " + esc(e.message),"err");
+  }finally{
+    btn.disabled = false;
   }
 });
 
