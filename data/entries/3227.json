@@ -1,0 +1,34 @@
+{
+ "idnum": 3227,
+ "fields": {
+  "Title": "Epson QX-16 System Unit",
+  "AltTitle": "Epson Q801A",
+  "Description": "System unit of the QX-16. A hybrid dual-CPU architecture featuring both a Z80 chip (for CP/M-80) and an 8088 chip (for MS-DOS / PC software compatibility). No monitor, keyboard or accessories",
+  "Creator": "Epson",
+  "WherMade": "Japan",
+  "Created": "1984-1985",
+  "ModelNum": "Q801A",
+  "SerialNum": "010657",
+  "ConformsTo": "FCC ID: BKM9A8Q801A",
+  "ItemCondition": "f",
+  "Functional": "u",
+  "ConditionNts": "Unit is in good shape, not very useful without accessories",
+  "Fragility": "f",
+  "Color": "beige",
+  "Material": "mp",
+  "Dimensions": "H 4.5, W 20, D 13",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-25T22:43:07.669Z",
+  "type": "hardware",
+  "updated": "2026-08-25T22:43:07.669Z"
+ }
+}
