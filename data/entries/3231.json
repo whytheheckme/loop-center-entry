@@ -1,0 +1,33 @@
+{
+ "idnum": 3231,
+ "fields": {
+  "Title": "IBM PC 5150",
+  "Description": "IBM PC with 5.25\" FD and HD",
+  "Creator": "IBM",
+  "WherMade": "Armonk, NY",
+  "Created": "~1981",
+  "ModelNum": "5150",
+  "SerialNum": "0120028",
+  "ConformsTo": "FCC ID: AN09SA5150",
+  "ItemCondition": "f",
+  "Functional": "u",
+  "ConditionNts": "Exterior case quite rusted",
+  "Fragility": "d",
+  "Color": "Grey",
+  "Material": "mp",
+  "Dimensions": "H 5, W 20, D 15",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-25T23:08:34.769Z",
+  "type": "hardware",
+  "updated": "2026-08-25T23:08:34.769Z"
+ }
+}
