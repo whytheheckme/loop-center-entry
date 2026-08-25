@@ -9,6 +9,7 @@
   "OtherNum": "Express Service Code 46-731-77",
   "ItemCondition": "f",
   "Functional": "u",
+  "ConditionNts": "minor case scuffs, no broken plastic",
   "Fragility": "d",
   "Color": "beige",
   "Material": "mix",
@@ -18,19 +19,19 @@
   "Type": "1",
   "MediaType": "9",
   "ItemType": "0",
+  "MovingImage": "n",
+  "CatBy": "jk",
+  "URI": "https://www.loopcntr.net/repository/3210.jpg",
   "StillImage": [
    "https://www.loopcntr.net/repository/3210.jpg",
    "https://www.loopcntr.net/repository/3210-2.jpg",
    "https://www.loopcntr.net/repository/3210-3.jpg",
    "https://www.loopcntr.net/repository/3210-4.jpg"
-  ],
-  "MovingImage": "n",
-  "CatBy": "jk",
-  "URI": "https://www.loopcntr.net/repository/3210.jpg"
+  ]
  },
  "_meta": {
   "created": "2026-08-25T19:53:04.059Z",
   "type": "hardware",
-  "updated": "2026-08-25T19:56:58.994Z"
+  "updated": "2026-08-25T19:59:00.179Z"
  }
 }
