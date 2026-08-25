@@ -1,0 +1,22 @@
+{
+ "idnum": 3209,
+ "fields": {
+  "Title": "MITS 4K RAM Board",
+  "Description": "Blank PCB MITS 4K RAM Board",
+  "ItemCondition": "f",
+  "Dimensions": "H 5.25 in, W 10 in",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-25T19:13:04.576Z",
+  "type": "hardware",
+  "updated": "2026-08-25T19:13:04.576Z"
+ }
+}
