@@ -1,0 +1,30 @@
+{
+ "idnum": 3229,
+ "fields": {
+  "Title": "DTK Computer 486 Desktop",
+  "Description": "Cyrix 486DX2 50MHz System",
+  "Creator": "DTK Computer",
+  "Created": "~1994",
+  "ModelNum": "FEAT-05",
+  "ConformsTo": "FCC ID: F825K4FEAT05",
+  "ItemCondition": "f",
+  "Functional": "u",
+  "ConditionNts": "Corrosion on back of case, in good condition otherwise",
+  "Fragility": "d",
+  "Color": "beige",
+  "Dimensions": "H 6, W 17, D 17",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-25T22:56:14.539Z",
+  "type": "hardware",
+  "updated": "2026-08-25T22:56:14.539Z"
+ }
+}
