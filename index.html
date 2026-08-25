@@ -173,6 +173,10 @@
           <input type="text" id="f_WherMade" maxlength="30" placeholder="e.g. USA, Korea">
         </div>
       </div>
+      <div class="field"><label for="f_Created">Date made <span class="code">(Created)</span></label>
+        <input type="text" id="f_Created" maxlength="13" placeholder="e.g. 1982, May 1986, 03/20/1982">
+        <div class="hint">When the machine was manufactured — a year alone is fine.</div>
+      </div>
     </div>
   </details>
 
@@ -276,12 +280,12 @@
       <div class="field"><label for="f_DonorNotes">Donor notes</label>
         <input type="text" id="f_DonorNotes" maxlength="152"></div>
       <div class="row2">
-        <div class="field"><label for="f_Created">Date made <span class="code">(Created)</span></label>
-          <input type="text" id="f_Created" maxlength="13" placeholder="e.g. 1982 or 03/20/1982"></div>
         <div class="field"><label for="f_Copyrighted">Copyrighted?</label>
           <select id="f_Copyrighted">
             <option value=""></option><option value="y">y</option><option value="n">n</option>
           </select></div>
+        <div class="field"><label for="f_DateCR">Copyright date <span class="code">(DateCR)</span></label>
+          <input type="text" id="f_DateCR" maxlength="10" placeholder="e.g. 1983"></div>
       </div>
     </div>
   </details>
@@ -768,13 +772,15 @@ async function searchMerged(q){
     const t = f.Title || "";
     if((isNum && idStr.includes(q)) || (!isNum && t.toLowerCase().includes(ql)))
       hits.push({ id: parseInt(idStr), title: t, isNew: false, changed: overrideIds.has(parseInt(idStr)),
-                  sub: [f.ModelNum, f.SerialNum, f.Medium && ("medium " + f.Medium)].filter(x => x && x !== "0").join(" · ") });
+                  sub: [realVal(f.Created) && ("made " + realVal(f.Created)), realVal(f.ModelNum), realVal(f.SerialNum),
+                        realVal(f.Medium) && ("medium " + f.Medium)].filter(Boolean).join(" · ") });
   }
   // exact id match to the top
   hits.sort((a,b) => (String(b.id) === q) - (String(a.id) === q));
   return hits;
 }
 
+const realVal = v => v && !["0", "0000-00-00", "na", "None"].includes(String(v).trim()) ? String(v).trim() : null;
 function hitCard(h, extra){
   const badge = h.isNew ? '<span class="idchip">new #' + h.id + '</span>'
               : h.changed ? '<span class="idchip">edited #' + h.id + '</span>'
@@ -816,8 +822,9 @@ async function renderRecent(){
           const fl = e.data.fields || {};
           titleCache.set(f.id, fl.Title || "(untitled)");
           const imported = e.data._meta && e.data._meta.imported;
-          const bits = [fl.ModelNum && ("Model " + fl.ModelNum), fl.SerialNum && ("S/N " + fl.SerialNum),
-                        fl.Source, fl.CatBy && ("by " + fl.CatBy)].filter(x => x && x !== "0").join(" · ");
+          const bits = [realVal(fl.Created) && ("made " + realVal(fl.Created)),
+                        realVal(fl.ModelNum) && ("Model " + fl.ModelNum), realVal(fl.SerialNum) && ("S/N " + fl.SerialNum),
+                        realVal(fl.Source), realVal(fl.CatBy) && ("by " + fl.CatBy)].filter(Boolean).join(" · ");
           return hitCard({ id: f.id, title: fl.Title, isNew: !imported, changed: !!imported, sub: bits });
         }).join("");
       if(files.length > 30)
@@ -949,7 +956,9 @@ async function renderPhotoList(){
       hits = loaded.filter(Boolean).map(({f, e}) => {
         const fl = e.data.fields || {};
         titleCache.set(f.id, fl.Title || "(untitled)");
-        return { id: f.id, title: fl.Title, sub: [fl.ModelNum, fl.SerialNum].filter(x => x && x !== "0").join(" · ") };
+        return { id: f.id, title: fl.Title,
+                 sub: [realVal(fl.Created) && ("made " + realVal(fl.Created)), realVal(fl.ModelNum), realVal(fl.SerialNum)]
+                      .filter(Boolean).join(" · ") };
       });
     }
     clearStatus("photosStatus");
