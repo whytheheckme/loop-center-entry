@@ -73,6 +73,10 @@
         padding:12px 14px;margin-bottom:10px}
   .entrycard{cursor:pointer}
   .entrycard:active{background:#eef2f7}
+  .similarbtn{display:inline-block;margin-top:8px;background:#fff;border:1px solid var(--line);
+      border-radius:8px;font-size:13px;font-weight:600;color:var(--blue);padding:6px 12px;
+      cursor:pointer;font-family:inherit}
+  .similarbtn:active{background:#e7eef9}
   .entrycard .t{font-weight:650;font-size:15px}
   .entrycard .m{font-size:12.5px;color:var(--muted);margin-top:3px}
   .idchip{float:right;font-size:12px;font-weight:700;color:var(--blue);background:#e7eef9;
@@ -624,9 +628,8 @@ function resetForm(keepSimilar){
   document.getElementById("entryForm").reset();
   // form.reset restores HTML default values (Medium=h etc.)
   if(keepSimilar){
-    const similar = ["Creator","WherMade","Color","Material","ItemCondition","Fragility",
-                     "Functional","Power","Copyrighted","Created"].concat(sticky);
-    similar.forEach(c => { if(keep[c] !== undefined) $("f_" + c).value = keep[c]; });
+    // copy over ALL form fields from the previous entry
+    FORM_FIELDS.forEach(c => { if(keep[c] !== undefined && !Array.isArray(keep[c])) $("f_" + c).value = keep[c]; });
   } else {
     sticky.forEach(c => { if(editing.lastSticky[c] !== undefined) $("f_" + c).value = editing.lastSticky[c]; });
   }
@@ -781,14 +784,42 @@ async function searchMerged(q){
 }
 
 const realVal = v => v && !["0", "0000-00-00", "na", "None"].includes(String(v).trim()) ? String(v).trim() : null;
-function hitCard(h, extra){
+function hitCard(h, extra, withSimilar){
   const badge = h.isNew ? '<span class="idchip">new #' + h.id + '</span>'
               : h.changed ? '<span class="idchip">edited #' + h.id + '</span>'
               : '<span class="idchip" style="color:var(--muted);background:var(--bg)">#' + h.id + '</span>';
   return '<div class="card entrycard" data-id="' + h.id + '" data-title="' + esc(h.title || "") + '">' +
     (extra || "") + badge +
     '<div class="t">' + esc(h.title || "(untitled)") + '</div>' +
-    '<div class="m">' + esc(h.sub || "") + '</div></div>';
+    '<div class="m">' + esc(h.sub || "") + '</div>' +
+    (withSimilar ? '<button class="similarbtn" data-sim="' + h.id + '">⧉ New similar</button>' : "") +
+    '</div>';
+}
+
+/* start a NEW entry pre-filled from an existing item's data (photos/URIs are not copied) */
+async function newSimilarFrom(id){
+  try{
+    setStatus("recentStatus",'<span class="spin">↻</span> Copying #' + id + "…","busy");
+    const { data } = await getItemRecord(id);
+    const src = data.fields || {};
+    document.getElementById("entryForm").reset();
+    editing.id = null; editing.sha = null; editing.existingMeta = null; editing.existingFields = null;
+    $("editBanner").style.display = "none";
+    FORM_FIELDS.forEach(c => {
+      const v = src[c];
+      if(v !== undefined && v !== null && !Array.isArray(v)) $("f_" + c).value = v;
+    });
+    if(!$("f_CatBy").value && cfg.catby) $("f_CatBy").value = cfg.catby;
+    $("btnSave").textContent = "Save entry";
+    clearStatus("recentStatus");
+    switchView("entry");
+    window.scrollTo(0,0);
+    updateStoryCount();
+    saveDraft();
+    setStatus("entryStatus","New entry pre-filled from #" + id + " — it will get its own new IdNum when saved.","ok");
+  }catch(e){
+    setStatus("recentStatus","Could not copy #" + id + ": " + esc(e.message),"err");
+  }
 }
 
 async function renderRecent(){
@@ -803,7 +834,7 @@ async function renderRecent(){
     if(q){
       const hits = await searchMerged(q);
       clearStatus("recentStatus");
-      box.innerHTML = hits.length ? hits.map(h => hitCard(h)).join("")
+      box.innerHTML = hits.length ? hits.map(h => hitCard(h, "", true)).join("")
         : '<div class="note">No matches for “' + esc(q) + '”.</div>';
     } else {
       const files = await listEntryFiles();
@@ -825,11 +856,13 @@ async function renderRecent(){
           const bits = [realVal(fl.Created) && ("made " + realVal(fl.Created)),
                         realVal(fl.ModelNum) && ("Model " + fl.ModelNum), realVal(fl.SerialNum) && ("S/N " + fl.SerialNum),
                         realVal(fl.Source), realVal(fl.CatBy) && ("by " + fl.CatBy)].filter(Boolean).join(" · ");
-          return hitCard({ id: f.id, title: fl.Title, isNew: !imported, changed: !!imported, sub: bits });
+          return hitCard({ id: f.id, title: fl.Title, isNew: !imported, changed: !!imported, sub: bits }, "", true);
         }).join("");
       if(files.length > 30)
         box.innerHTML += '<div class="note" style="text-align:center">…and ' + (files.length-30) + ' more (all included in export)</div>';
     }
+    box.querySelectorAll("[data-sim]").forEach(b =>
+      b.addEventListener("click", e => { e.stopPropagation(); newSimilarFrom(parseInt(b.dataset.sim)); }));
     box.querySelectorAll(".entrycard").forEach(el =>
       el.addEventListener("click", () => editEntry(parseInt(el.dataset.id))));
   }catch(e){
