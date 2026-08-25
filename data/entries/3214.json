@@ -1,0 +1,28 @@
+{
+ "idnum": 3214,
+ "fields": {
+  "Title": "486 Desktop PC",
+  "Description": "Generic case 486, note says: Cyrex 486DX2, 0MB RAM, 200MB HD",
+  "Created": "~1993",
+  "ItemCondition": "f",
+  "Functional": "u",
+  "ConditionNts": "Corrosion in the bottom of the case, extent of damage unknown",
+  "Fragility": "d",
+  "Color": "grey",
+  "Material": "mix",
+  "Dimensions": "H 13, W 7, D 16",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-25T20:34:06.829Z",
+  "type": "hardware",
+  "updated": "2026-08-25T20:34:06.829Z"
+ }
+}
