@@ -1,0 +1,35 @@
+{
+ "idnum": 3228,
+ "fields": {
+  "Title": "ALR FLYER SD+",
+  "Description": "486 (likely) PC Desktop",
+  "Creator": "Advanced Logic Research, Inc.",
+  "WherMade": "USA",
+  "Created": "~1992",
+  "ModelNum": "1",
+  "SerialNum": "0539320",
+  "PartNum": "4/25S",
+  "OtherNum": "66352600",
+  "ConformsTo": "PCC ID: E7Y8880FLYRSD",
+  "ItemCondition": "f",
+  "Functional": "u",
+  "ConditionNts": "Minor case scratches, nameplate is corroded",
+  "Fragility": "d",
+  "Color": "beige",
+  "Material": "mp",
+  "Dimensions": "H 3.5, W 16, D 16",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-25T22:50:38.341Z",
+  "type": "hardware",
+  "updated": "2026-08-25T22:50:38.341Z"
+ }
+}
