@@ -1,0 +1,27 @@
+{
+ "idnum": 3220,
+ "fields": {
+  "Title": "Smilodon Raidmax Gaming Development",
+  "Description": "AM3 (Athlon II?) gaming PC with 8GB DDR3 Memory",
+  "Creator": "Smilodon",
+  "Created": "~2009",
+  "ItemCondition": "g",
+  "Functional": "u",
+  "Fragility": "d",
+  "Color": "Black",
+  "Dimensions": "H 18, W 8, D 20",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-25T21:34:20.740Z",
+  "type": "hardware",
+  "updated": "2026-08-25T21:34:20.740Z"
+ }
+}
