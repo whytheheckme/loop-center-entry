@@ -1,0 +1,30 @@
+{
+ "idnum": 3210,
+ "fields": {
+  "Title": "Dell Dimension XPS T600r",
+  "Description": "Pentium 3 Tower PC",
+  "Creator": "Dell",
+  "ModelNum": "Dimension XPS T600r",
+  "PartNum": "Service Tag 2S5UH",
+  "OtherNum": "Express Service Code 46-731-77",
+  "ItemCondition": "f",
+  "Functional": "u",
+  "Fragility": "d",
+  "Color": "beige",
+  "Material": "mix",
+  "Dimensions": "H 17, W 7, D 16",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-25T19:53:04.059Z",
+  "type": "hardware",
+  "updated": "2026-08-25T19:53:04.059Z"
+ }
+}
