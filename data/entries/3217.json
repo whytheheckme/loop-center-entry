@@ -1,0 +1,31 @@
+{
+ "idnum": 3217,
+ "fields": {
+  "Title": "NEC Multisync II Monitor",
+  "Description": "CGA, EGA, VGA Monitor",
+  "Creator": "NEC",
+  "Created": "09/1988",
+  "ModelNum": "JC-1402HMA",
+  "SerialNum": "89K65218K",
+  "ConformsTo": "PCC ID: A3D5YRJC-1402HMA",
+  "ItemCondition": "f",
+  "Functional": "u",
+  "ConditionNts": "Quite dirty, but otherwise plastics are in good condition",
+  "Fragility": "f",
+  "Color": "grey",
+  "Dimensions": "H 15, W 14, D 16",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-25T20:52:49.387Z",
+  "type": "hardware",
+  "updated": "2026-08-25T20:52:49.387Z"
+ }
+}
