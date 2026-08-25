@@ -1,0 +1,32 @@
+{
+ "idnum": 3216,
+ "fields": {
+  "Title": "Gateway 2000 P5-75",
+  "Description": "Pentium 1 75 MHz Gateway 2000 Tall Tower",
+  "Creator": "Gateway",
+  "Created": "02/08/1995",
+  "ModelNum": "NEW TOWER",
+  "SerialNum": "3079445",
+  "ConformsTo": "FCC ID: HWYBAT586P90P75",
+  "ItemCondition": "f",
+  "Functional": "u",
+  "ConditionNts": "Missing two 5.25\" plate covers, plastics need some cleaning but otherwise good looking",
+  "Fragility": "d",
+  "Color": "grey",
+  "Material": "mp",
+  "Dimensions": "H 23, W 8, D 19",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-25T20:46:54.185Z",
+  "type": "hardware",
+  "updated": "2026-08-25T20:46:54.185Z"
+ }
+}
