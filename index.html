@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1c4587">
+<title>LO*OP Center — Catalog Entry</title>
+<style>
+  :root{
+    --blue:#1c4587; --blue-dk:#123059; --accent:#e8590c;
+    --bg:#f4f5f7; --card:#ffffff; --ink:#1c1e21; --muted:#65707c;
+    --line:#d9dee4; --ok:#2b8a3e; --err:#c92a2a;
+    --radius:10px;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+       background:var(--bg);color:var(--ink);padding-bottom:120px}
+  header{background:var(--blue);color:#fff;padding:14px 16px 12px;position:sticky;top:0;z-index:20;
+         display:flex;align-items:baseline;gap:10px}
+  header h1{font-size:17px;margin:0;font-weight:700;letter-spacing:.2px}
+  header .sub{font-size:12px;opacity:.85}
+  header .mode{margin-left:auto;font-size:12px;background:rgba(255,255,255,.15);padding:3px 9px;border-radius:99px}
+  .wrap{max-width:640px;margin:0 auto;padding:12px}
+  .view{display:none}.view.active{display:block}
+
+  /* form */
+  details.sec{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+              margin-bottom:10px;overflow:hidden}
+  details.sec>summary{list-style:none;cursor:pointer;padding:13px 14px;font-weight:650;font-size:15px;
+              display:flex;align-items:center;gap:8px;user-select:none}
+  details.sec>summary::-webkit-details-marker{display:none}
+  details.sec>summary::after{content:"▾";margin-left:auto;color:var(--muted);transition:transform .15s}
+  details.sec:not([open])>summary::after{transform:rotate(-90deg)}
+  details.sec>summary .badge{font-size:11px;font-weight:600;color:var(--muted);background:var(--bg);
+              border-radius:99px;padding:2px 8px}
+  .sec .body{padding:2px 14px 14px;border-top:1px solid var(--line)}
+  .field{margin-top:12px}
+  .field label{display:block;font-size:13px;font-weight:600;margin-bottom:4px}
+  .field label .code{color:var(--muted);font-weight:500}
+  .field .hint{font-size:12px;color:var(--muted);margin-top:3px}
+  input[type=text],input[type=number],textarea,select{
+    width:100%;font-size:16px;padding:10px 11px;border:1px solid var(--line);border-radius:8px;
+    background:#fff;color:var(--ink);font-family:inherit}
+  input:focus,textarea:focus,select:focus{outline:2px solid var(--blue);outline-offset:-1px;border-color:var(--blue)}
+  textarea{min-height:64px;resize:vertical}
+  textarea.tall{min-height:110px}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .req::after{content:" *";color:var(--err)}
+  .story summary{color:var(--accent)}
+
+  /* action bar */
+  .actionbar{position:fixed;left:0;right:0;bottom:56px;z-index:20;padding:10px 12px;
+             background:linear-gradient(transparent,rgba(244,245,247,.6) 20%,var(--bg) 60%)}
+  .actionbar .inner{max-width:640px;margin:0 auto;display:flex;gap:10px}
+  button.primary{flex:1;background:var(--blue);color:#fff;border:0;border-radius:10px;
+      font-size:17px;font-weight:700;padding:14px;cursor:pointer;box-shadow:0 2px 8px rgba(18,48,89,.35)}
+  button.primary:active{background:var(--blue-dk)}
+  button.primary:disabled{opacity:.6}
+  button.ghost{background:#fff;border:1px solid var(--line);border-radius:10px;font-size:15px;
+      padding:14px 16px;cursor:pointer;color:var(--ink)}
+
+  /* bottom nav */
+  nav{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line);z-index:30;
+      display:flex;padding-bottom:env(safe-area-inset-bottom)}
+  nav button{flex:1;background:none;border:0;padding:9px 4px 7px;font-size:11.5px;color:var(--muted);
+      cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;font-family:inherit}
+  nav button .ico{font-size:19px;line-height:1}
+  nav button.active{color:var(--blue);font-weight:700}
+
+  /* cards / recent */
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+        padding:12px 14px;margin-bottom:10px}
+  .entrycard{cursor:pointer}
+  .entrycard:active{background:#eef2f7}
+  .entrycard .t{font-weight:650;font-size:15px}
+  .entrycard .m{font-size:12.5px;color:var(--muted);margin-top:3px}
+  .idchip{float:right;font-size:12px;font-weight:700;color:var(--blue);background:#e7eef9;
+          border-radius:99px;padding:2px 9px;margin-left:8px}
+
+  .note{font-size:13px;color:var(--muted);line-height:1.45}
+  .status{font-size:13.5px;line-height:1.5;padding:10px 12px;border-radius:8px;margin:10px 0;display:none}
+  .status.show{display:block}
+  .status.ok{background:#e6f4ea;color:var(--ok)}
+  .status.err{background:#fdecec;color:var(--err)}
+  .status.busy{background:#fff8e1;color:#8a6d00}
+
+  /* modal */
+  .overlay{position:fixed;inset:0;background:rgba(15,20,28,.55);z-index:50;display:none;
+           align-items:center;justify-content:center;padding:24px}
+  .overlay.show{display:flex}
+  .modal{background:#fff;border-radius:14px;padding:22px 20px;max-width:380px;width:100%;text-align:center}
+  .modal .big{font-size:44px;font-weight:800;color:var(--blue);margin:6px 0 2px}
+  .modal p{margin:8px 0 16px;color:var(--muted);font-size:14px}
+  .modal .btns{display:flex;gap:10px}
+  .modal .btns button{flex:1}
+
+  pre.sqlbox{background:#101418;color:#d8e2ec;font-size:11.5px;border-radius:8px;padding:12px;
+      overflow-x:auto;max-height:300px;white-space:pre;line-height:1.5}
+  .kpi{display:flex;gap:10px;margin-bottom:10px}
+  .kpi .card{flex:1;text-align:center;margin:0}
+  .kpi .n{font-size:26px;font-weight:800;color:var(--blue)}
+  .kpi .l{font-size:12px;color:var(--muted)}
+  .settings-note{background:#fff8e1;border:1px solid #f1e3a6;border-radius:8px;padding:10px 12px;
+      font-size:13px;line-height:1.5;margin-bottom:12px}
+  h2{font-size:16px;margin:6px 2px 12px}
+  .spin{display:inline-block;animation:sp 1s linear infinite}
+  @keyframes sp{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>LO*OP Center</h1>
+  <span class="sub">Catalog Entry</span>
+  <span class="mode" id="modeChip">Hardware</span>
+</header>
+
+<div class="wrap">
+
+<!-- ============ ENTRY VIEW ============ -->
+<div class="view active" id="view-entry">
+  <div class="status" id="entryStatus"></div>
+  <div class="card" id="editBanner" style="display:none;background:#fff8e1">
+    Editing entry <b id="editBannerId"></b> — saving will update it.
+    <a href="#" id="cancelEdit">Start a new entry instead</a>
+  </div>
+
+  <form id="entryForm" autocomplete="off">
+
+  <details class="sec" open>
+    <summary>Item</summary>
+    <div class="body">
+      <div class="field"><label class="req" for="f_Title">Title</label>
+        <input type="text" id="f_Title" maxlength="150" placeholder="e.g. Apple Monochrome Monitor IIe">
+      </div>
+      <div class="field"><label for="f_AltTitle">Alternate title</label>
+        <input type="text" id="f_AltTitle" maxlength="50">
+      </div>
+      <div class="field"><label class="req" for="f_Description">Description</label>
+        <textarea id="f_Description" maxlength="500" placeholder="What is it? Notable features, what system it belongs to…"></textarea>
+      </div>
+      <div class="field"><label for="f_DescComment">Description comment</label>
+        <input type="text" id="f_DescComment" maxlength="250" placeholder="Cataloger's aside, e.g. attribution of a claim">
+      </div>
+      <div class="row2">
+        <div class="field"><label for="f_Creator">Maker <span class="code">(Creator)</span></label>
+          <input type="text" id="f_Creator" maxlength="150" placeholder="e.g. Apple Computer">
+        </div>
+        <div class="field"><label for="f_WherMade">Where made</label>
+          <input type="text" id="f_WherMade" maxlength="30" placeholder="e.g. USA, Korea">
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <details class="sec story" open>
+    <summary>Liza's story</summary>
+    <div class="body">
+      <div class="field"><label for="f_AccrualComments">Story / how this item came to LO*OP <span class="code">(AccrualComments)</span></label>
+        <textarea id="f_AccrualComments" class="tall" maxlength="500" placeholder="Liza's account of the item — where it came from, who used it, why it matters…"></textarea>
+        <div class="hint">Max 500 characters. <span id="storyCount"></span></div>
+      </div>
+    </div>
+  </details>
+
+  <details class="sec" open>
+    <summary>Identifying numbers</summary>
+    <div class="body">
+      <div class="row2">
+        <div class="field"><label for="f_ModelNum">Model no.</label>
+          <input type="text" id="f_ModelNum" maxlength="32" placeholder="e.g. A2M6017"></div>
+        <div class="field"><label for="f_SerialNum">Serial no.</label>
+          <input type="text" id="f_SerialNum" maxlength="32"></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label for="f_PartNum">Part no.</label>
+          <input type="text" id="f_PartNum" maxlength="48"></div>
+        <div class="field"><label for="f_OtherNum">Other no.</label>
+          <input type="text" id="f_OtherNum" maxlength="48" placeholder="assembly, FCC…"></div>
+      </div>
+      <div class="field"><label for="f_ConformsTo">Conforms to</label>
+        <input type="text" id="f_ConformsTo" maxlength="250" placeholder="e.g. FCC ID BCG7Y6A2M6017"></div>
+    </div>
+  </details>
+
+  <details class="sec" open>
+    <summary>Condition &amp; physical</summary>
+    <div class="body">
+      <div class="row2">
+        <div class="field"><label for="f_ItemCondition">Condition</label>
+          <select id="f_ItemCondition">
+            <option value=""></option>
+            <option value="e">e — excellent</option>
+            <option value="vg">vg — very good</option>
+            <option value="g">g — good</option>
+            <option value="f">f — fair</option>
+            <option value="p">p — poor</option>
+            <option value="un">un — unknown</option>
+            <option value="na">na</option>
+          </select></div>
+        <div class="field"><label for="f_Functional">Functional?</label>
+          <select id="f_Functional">
+            <option value=""></option>
+            <option value="y">y — yes, works</option>
+            <option value="n">n — no</option>
+            <option value="u">u — untested / unknown</option>
+          </select></div>
+      </div>
+      <div class="field"><label for="f_ConditionNts">Condition notes</label>
+        <textarea id="f_ConditionNts" maxlength="150" placeholder="Scratches, missing parts, who tested it and when…"></textarea></div>
+      <div class="row2">
+        <div class="field"><label for="f_Fragility">Fragility <span class="code">(code)</span></label>
+          <select id="f_Fragility">
+            <option value=""></option>
+            <option value="no">no</option>
+            <option value="d">d</option>
+            <option value="dg">dg</option>
+            <option value="f">f</option>
+            <option value="vf">vf</option>
+            <option value="na">na</option>
+          </select>
+        </div>
+        <div class="field"><label for="f_Power">Power</label>
+          <input type="text" id="f_Power" maxlength="30" list="dl_Power" placeholder="Yes / No / N-A">
+          <datalist id="dl_Power"><option>Yes</option><option>No</option><option>N/A</option></datalist>
+        </div>
+      </div>
+      <div class="row2">
+        <div class="field"><label for="f_Color">Color</label>
+          <input type="text" id="f_Color" maxlength="20" placeholder="e.g. beige"></div>
+        <div class="field"><label for="f_Material">Material <span class="code">(code)</span></label>
+          <input type="text" id="f_Material" maxlength="4" list="dl_Material">
+          <datalist id="dl_Material">
+            <option value="mix">mixed</option><option value="p">plastic</option>
+            <option value="meta">metal</option><option value="mt">metal</option>
+            <option value="papr">paper</option><option value="mp">metal+plastic</option>
+          </datalist></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label for="f_Dimensions">Dimensions</label>
+          <input type="text" id="f_Dimensions" maxlength="20" placeholder="H 11, W 14.5, D 14 in"></div>
+        <div class="field"><label for="f_Weight">Weight</label>
+          <input type="text" id="f_Weight" maxlength="16" placeholder="e.g. 22 lb"></div>
+      </div>
+    </div>
+  </details>
+
+  <details class="sec">
+    <summary>Provenance</summary>
+    <div class="body">
+      <div class="field"><label for="f_Source">Source / donor</label>
+        <input type="text" id="f_Source" maxlength="150" placeholder="e.g. Santa Rosa City Schools"></div>
+      <div class="field"><label for="f_DonorNotes">Donor notes</label>
+        <input type="text" id="f_DonorNotes" maxlength="152"></div>
+      <div class="row2">
+        <div class="field"><label for="f_Created">Date made <span class="code">(Created)</span></label>
+          <input type="text" id="f_Created" maxlength="13" placeholder="e.g. 1982 or 03/20/1982"></div>
+        <div class="field"><label for="f_Copyrighted">Copyrighted?</label>
+          <select id="f_Copyrighted">
+            <option value=""></option><option value="y">y</option><option value="n">n</option>
+          </select></div>
+      </div>
+    </div>
+  </details>
+
+  <details class="sec">
+    <summary>Location</summary>
+    <div class="body">
+      <div class="row2">
+        <div class="field"><label for="f_Location">Location <span class="code">(code)</span></label>
+          <input type="text" id="f_Location" maxlength="4" list="dl_Location">
+          <datalist id="dl_Location">
+            <option value="c">c</option><option value="lg">lg</option><option value="dr">dr</option>
+            <option value="bD">bD</option><option value="iu">iu</option><option value="stan">stan</option>
+            <option value="hg">hg</option><option value="uk">uk</option><option value="Oth">Oth</option>
+            <option value="lm">lm</option>
+          </datalist></div>
+        <div class="field"><label for="f_Interim">Interim <span class="code">(code)</span></label>
+          <input type="text" id="f_Interim" maxlength="4" list="dl_Interim">
+          <datalist id="dl_Interim">
+            <option>na</option><option>b6</option><option>b7</option><option>b8</option><option>b9</option>
+            <option>b10</option><option>b11</option><option>b12</option><option>b13</option><option>b14</option>
+            <option>dr</option><option>bi</option><option>cT</option>
+          </datalist></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label for="f_Box">Box</label>
+          <input type="text" id="f_Box" maxlength="12" placeholder="e.g. B99"></div>
+        <div class="field"><label for="f_LocNotes">Location notes</label>
+          <input type="text" id="f_LocNotes" maxlength="250"></div>
+      </div>
+    </div>
+  </details>
+
+  <details class="sec">
+    <summary>Relations</summary>
+    <div class="body">
+      <div class="row2">
+        <div class="field"><label for="f_IsPart">Is part of <span class="code">(IdNum)</span></label>
+          <input type="number" id="f_IsPart" inputmode="numeric" placeholder="parent item's IdNum"></div>
+        <div class="field"><label for="f_HasPart">Has part <span class="code">(IdNum)</span></label>
+          <input type="number" id="f_HasPart" inputmode="numeric" placeholder="child item's IdNum"></div>
+      </div>
+      <div class="hint" style="margin-top:8px">e.g. a motherboard IsPart of its computer; a computer HasPart its power supply.</div>
+    </div>
+  </details>
+
+  <details class="sec">
+    <summary>Classification &amp; admin <span class="badge">defaults set</span></summary>
+    <div class="body">
+      <div class="row2">
+        <div class="field"><label for="f_Medium">Medium</label>
+          <input type="text" id="f_Medium" maxlength="4" value="h">
+          <div class="hint">h = hardware</div></div>
+        <div class="field"><label for="f_Collection">Collection</label>
+          <input type="number" id="f_Collection" inputmode="numeric" value="2900"></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label for="f_Type">Type</label>
+          <input type="number" id="f_Type" inputmode="numeric" value="1"></div>
+        <div class="field"><label for="f_MediaType">MediaType</label>
+          <input type="number" id="f_MediaType" inputmode="numeric" value="9"></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label for="f_ItemType">ItemType</label>
+          <input type="number" id="f_ItemType" inputmode="numeric" value="0"></div>
+        <div class="field"><label for="f_ToDo">ToDo</label>
+          <input type="text" id="f_ToDo" maxlength="1" placeholder="blank, 0, 1, n…"></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label for="f_StillImage">StillImage</label>
+          <select id="f_StillImage"><option value="n" selected>n</option><option value="y">y</option><option value=""></option></select></div>
+        <div class="field"><label for="f_MovingImage">MovingImage</label>
+          <select id="f_MovingImage"><option value="n" selected>n</option><option value="y">y</option><option value=""></option></select></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label for="f_CatBy">Cataloged by</label>
+          <input type="text" id="f_CatBy" maxlength="4" placeholder="initials"></div>
+        <div class="field"><label for="f_EditBy">Edited by</label>
+          <input type="text" id="f_EditBy" maxlength="4" placeholder="initials"></div>
+      </div>
+    </div>
+  </details>
+
+  </form>
+</div>
+
+<!-- ============ RECENT VIEW ============ -->
+<div class="view" id="view-recent">
+  <h2>Entries in this batch</h2>
+  <div class="status" id="recentStatus"></div>
+  <div id="recentList"></div>
+</div>
+
+<!-- ============ EXPORT VIEW ============ -->
+<div class="view" id="view-export">
+  <h2>Export for upload</h2>
+  <div class="kpi">
+    <div class="card"><div class="n" id="expCount">–</div><div class="l">entries</div></div>
+    <div class="card"><div class="n" id="expRange">–</div><div class="l">IdNum range</div></div>
+  </div>
+  <div class="note" style="margin-bottom:10px">Generates <code>INSERT</code> statements matching the
+    <code>catalog</code> table in Liza's database, ready to paste into phpMyAdmin's SQL tab.</div>
+  <div class="status" id="exportStatus"></div>
+  <div class="actionrow" style="display:flex;gap:10px;margin-bottom:12px">
+    <button class="primary" id="btnBuildSql" style="flex:1">Build SQL</button>
+    <button class="ghost" id="btnCopySql" disabled>Copy</button>
+    <button class="ghost" id="btnDlSql" disabled>Download</button>
+  </div>
+  <pre class="sqlbox" id="sqlOut" style="display:none"></pre>
+</div>
+
+<!-- ============ SETTINGS VIEW ============ -->
+<div class="view" id="view-settings">
+  <h2>Settings</h2>
+  <div class="settings-note">Entries are saved as files in a GitHub repository so every device shares
+    the same list and ID sequence. Each device needs the token pasted once.</div>
+  <div class="card">
+    <div class="field"><label for="s_owner">GitHub owner (user or org)</label>
+      <input type="text" id="s_owner" autocapitalize="none" placeholder="e.g. jacobkomar"></div>
+    <div class="field"><label for="s_repo">Repository</label>
+      <input type="text" id="s_repo" autocapitalize="none" placeholder="e.g. loop-center-entry"></div>
+    <div class="field"><label for="s_branch">Branch</label>
+      <input type="text" id="s_branch" autocapitalize="none" value="main"></div>
+    <div class="field"><label for="s_token">Access token</label>
+      <input type="text" id="s_token" autocapitalize="none" placeholder="github_pat_…">
+      <div class="hint">Fine-grained token with Contents read &amp; write on this one repo. Stored only in this browser.</div></div>
+    <div class="field"><label for="s_catby">Your cataloger initials</label>
+      <input type="text" id="s_catby" maxlength="4" placeholder="e.g. jk"></div>
+    <div class="field"><label for="s_startid">First IdNum for new entries</label>
+      <input type="number" id="s_startid" inputmode="numeric" value="3209">
+      <div class="hint">The Aug 2026 export ends at 3208. New entries continue from here.</div></div>
+    <div style="display:flex;gap:10px;margin-top:16px">
+      <button class="primary" id="btnSaveSettings" style="flex:1">Save settings</button>
+      <button class="ghost" id="btnTest">Test</button>
+    </div>
+    <div class="status" id="settingsStatus"></div>
+  </div>
+</div>
+
+</div><!-- /wrap -->
+
+<div class="actionbar" id="actionbar">
+  <div class="inner">
+    <button class="primary" id="btnSave">Save entry</button>
+  </div>
+</div>
+
+<nav>
+  <button data-view="entry" class="active"><span class="ico">✏️</span>New entry</button>
+  <button data-view="recent"><span class="ico">🗂</span>Batch</button>
+  <button data-view="export"><span class="ico">⬆️</span>Export</button>
+  <button data-view="settings"><span class="ico">⚙️</span>Settings</button>
+</nav>
+
+<div class="overlay" id="savedOverlay">
+  <div class="modal">
+    <div style="font-size:15px;color:var(--muted)">Saved — label the item</div>
+    <div class="big" id="savedId">#0000</div>
+    <p id="savedTitle"></p>
+    <div class="btns">
+      <button class="ghost" id="btnNewSimilar">New similar</button>
+      <button class="primary" id="btnNewBlank">New blank</button>
+    </div>
+  </div>
+</div>
+
+<script>
+"use strict";
+/* ================= schema ================= */
+const COLUMNS = ["IdNum","Title","Description","DescComment","SubjectTop","DonorNotes","WherMade","Color","Material","ItemCondition","ConditionNts","Fragility","Functional","Power","ToC","IsPart","IsVer","HasPart","HasVer","Creator","Publisher","Contributor","AddlAuth","Created","Copyrighted","DateCR","Available","Medium","Type","Format","ItemType","Dimensions","Extent","MediaType","Moves","Resolution","Software","StillImage","MovingImage","Weight","Identifier","ModelNum","SerialNum","PartNum","SeriesNum","OtherNum","ToDo","Location","LocNotes","Interim","Box","Loc","ToGo","AddCom","CatBy","EditBy","AltTitle","BibCit","SubKes","Description1","Source","Relation","ConformsTo","Coverage","RightsMGMT","Format1","BitDepth","Resolution1","NatlLang","ProgLang","PropDisp","DateScan","ProcInit","FormatBP","URI","ThumbNailURI","AbIint","IntInit","InstrMeth","Audience","AudLev","Mediator","ItemReferences","IsReferencedBy","Replaces","ReplacedBy","Requires","RequiredBy","AccessRights","RightsHolder","License","Provenance","Spacial","Temporal","AccrualComments","AccrualMethod","AccrualPeriodicity","AccPol","Collection","Wiki","Blog","TravelingExhibit","SocialMedia","SmallThumbURI","History6","History7","History8","History9"];
+const NUMERIC = new Set(["IdNum","IsPart","IsVer","HasPart","HasVer","Type","ItemType","MediaType","Loc","Relation","Format1","NatlLang","ProgLang","PropDisp","IntInit","ItemReferences","IsReferencedBy","Replaces","ReplacedBy","Requires","RequiredBy","AccessRights","License","AccrualMethod","AccrualPeriodicity","Collection"]);
+// Form fields (id="f_<Column>") are discovered from the DOM.
+const FORM_FIELDS = Array.from(document.querySelectorAll('[id^="f_"]')).map(el => el.id.slice(2));
+
+/* ================= config ================= */
+const CFG_KEY = "loopcenter_cfg_v1";
+const DRAFT_KEY = "loopcenter_draft_v1";
+let cfg = {};
+try { cfg = JSON.parse(localStorage.getItem(CFG_KEY) || "{}"); } catch(e) { cfg = {}; }
+
+function saveCfg(){ try{ localStorage.setItem(CFG_KEY, JSON.stringify(cfg)); }catch(e){} }
+function configured(){ return cfg.owner && cfg.repo && cfg.token; }
+
+/* ================= tiny helpers ================= */
+const $ = id => document.getElementById(id);
+function setStatus(id, msg, cls){
+  const el = $(id);
+  el.className = "status show " + (cls||"");
+  el.innerHTML = msg;
+  if(!msg){ el.className = "status"; }
+}
+function clearStatus(id){ $(id).className = "status"; }
+function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+function b64encode(str){
+  const bytes = new TextEncoder().encode(str);
+  let bin = ""; bytes.forEach(b => bin += String.fromCharCode(b));
+  return btoa(bin);
+}
+function b64decode(b64){
+  const bin = atob(b64.replace(/\n/g,""));
+  const bytes = Uint8Array.from(bin, c => c.charCodeAt(0));
+  return new TextDecoder().decode(bytes);
+}
+
+/* ================= GitHub API ================= */
+async function gh(path, opts){
+  opts = opts || {};
+  const res = await fetch("https://api.github.com" + path, {
+    method: opts.method || "GET",
+    headers: Object.assign({
+      "Authorization": "Bearer " + cfg.token,
+      "Accept": "application/vnd.github+json",
+      "X-GitHub-Api-Version": "2022-11-28"
+    }, opts.headers || {}),
+    body: opts.body ? JSON.stringify(opts.body) : undefined
+  });
+  if(res.status === 404 && opts.allow404){ return null; }
+  if(!res.ok){
+    let detail = "";
+    try { detail = (await res.json()).message || ""; } catch(e){}
+    const err = new Error("GitHub " + res.status + (detail ? ": " + detail : ""));
+    err.status = res.status;
+    throw err;
+  }
+  return res.json();
+}
+const repoPath = p => "/repos/" + cfg.owner + "/" + cfg.repo + "/contents/" + p;
+const ENTRY_DIR = "data/entries";
+
+async function listEntryFiles(){
+  const list = await gh(repoPath(ENTRY_DIR) + "?ref=" + cfg.branch, {allow404:true});
+  if(!list || !Array.isArray(list)) return [];
+  return list.filter(f => /^\d+\.json$/.test(f.name))
+             .map(f => ({ id: parseInt(f.name), sha: f.sha, name: f.name }))
+             .sort((a,b) => b.id - a.id);
+}
+async function getEntry(id){
+  const f = await gh(repoPath(ENTRY_DIR + "/" + id + ".json") + "?ref=" + cfg.branch);
+  return { sha: f.sha, data: JSON.parse(b64decode(f.content)) };
+}
+async function putEntry(id, data, sha, message){
+  const body = {
+    message: message,
+    branch: cfg.branch,
+    content: b64encode(JSON.stringify(data, null, 1))
+  };
+  if(sha) body.sha = sha;
+  return gh(repoPath(ENTRY_DIR + "/" + id + ".json"), { method:"PUT", body });
+}
+
+/* ================= form <-> data ================= */
+function readForm(){
+  const fields = {};
+  FORM_FIELDS.forEach(c => {
+    let v = $("f_" + c).value.trim();
+    if(v !== "") fields[c] = v;
+  });
+  return fields;
+}
+function fillForm(fields){
+  FORM_FIELDS.forEach(c => { $("f_" + c).value = (fields[c] !== undefined ? fields[c] : ""); });
+}
+function resetForm(keepSimilar){
+  const keep = keepSimilar ? readForm() : {};
+  const sticky = ["Medium","Collection","Type","MediaType","ItemType","StillImage","MovingImage",
+                  "CatBy","Location","Interim","Box","Source"];
+  document.getElementById("entryForm").reset();
+  // form.reset restores HTML default values (Medium=h etc.)
+  if(keepSimilar){
+    const similar = ["Creator","WherMade","Color","Material","ItemCondition","Fragility",
+                     "Functional","Power","Copyrighted","Created"].concat(sticky);
+    similar.forEach(c => { if(keep[c] !== undefined) $("f_" + c).value = keep[c]; });
+  } else {
+    sticky.forEach(c => { if(editing.lastSticky[c] !== undefined) $("f_" + c).value = editing.lastSticky[c]; });
+  }
+  if(!$("f_CatBy").value && cfg.catby) $("f_CatBy").value = cfg.catby;
+  editing.id = null; editing.sha = null;
+  $("editBanner").style.display = "none";
+  updateStoryCount();
+  saveDraft();
+  window.scrollTo(0,0);
+}
+
+const editing = { id:null, sha:null, lastSticky:{} };
+
+/* ================= drafts ================= */
+let draftTimer = null;
+function saveDraft(){
+  clearTimeout(draftTimer);
+  draftTimer = setTimeout(() => {
+    try{ localStorage.setItem(DRAFT_KEY, JSON.stringify({fields: readForm(), editingId: editing.id})); }catch(e){}
+  }, 400);
+}
+function loadDraft(){
+  try{
+    const d = JSON.parse(localStorage.getItem(DRAFT_KEY) || "null");
+    if(d && d.fields && Object.keys(d.fields).length){ fillForm(d.fields); }
+  }catch(e){}
+}
+
+/* ================= save flow ================= */
+async function saveEntry(){
+  clearStatus("entryStatus");
+  const fields = readForm();
+  if(!fields.Title || !fields.Description){
+    setStatus("entryStatus", "Title and Description are required.", "err");
+    window.scrollTo(0,0);
+    return;
+  }
+  if(!configured()){
+    setStatus("entryStatus", "Not connected yet — open <b>Settings</b> and enter the GitHub details first. Your entry is kept as a draft on this device.", "err");
+    window.scrollTo(0,0);
+    return;
+  }
+  const btn = $("btnSave");
+  btn.disabled = true; btn.innerHTML = '<span class="spin">↻</span> Saving…';
+  try{
+    if(editing.id){
+      const data = wrapEntry(editing.id, fields, editing.existingMeta);
+      await putEntry(editing.id, data, editing.sha, "Update entry " + editing.id + ": " + fields.Title);
+      afterSaved(editing.id, fields);
+    } else {
+      // assign next free id, retrying on collision with another device
+      const files = await listEntryFiles();
+      let id = Math.max(cfg.startid ? cfg.startid - 1 : 3208, files.length ? files[0].id : 0) + 1;
+      let attempts = 0, done = false;
+      while(!done){
+        try{
+          const data = wrapEntry(id, fields, null);
+          await putEntry(id, data, null, "Add entry " + id + ": " + fields.Title);
+          done = true;
+        }catch(e){
+          if((e.status === 422 || e.status === 409) && attempts < 6){ id++; attempts++; }
+          else throw e;
+        }
+      }
+      afterSaved(id, fields);
+    }
+  }catch(e){
+    setStatus("entryStatus", "Could not save: " + esc(e.message) + "<br>Your entry is still here — check the connection or Settings and press Save again.", "err");
+    window.scrollTo(0,0);
+  }finally{
+    btn.disabled = false; btn.textContent = editing.id ? "Save changes" : "Save entry";
+  }
+}
+function wrapEntry(id, fields, existingMeta){
+  const meta = existingMeta || { created: new Date().toISOString(), type: "hardware" };
+  meta.updated = new Date().toISOString();
+  return { idnum: id, fields: fields, _meta: meta };
+}
+function afterSaved(id, fields){
+  editing.lastSticky = {};
+  ["Medium","Collection","Type","MediaType","ItemType","StillImage","MovingImage",
+   "CatBy","Location","Interim","Box","Source"].forEach(c => {
+    if(fields[c] !== undefined) editing.lastSticky[c] = fields[c];
+  });
+  $("savedId").textContent = "#" + id;
+  $("savedTitle").textContent = fields.Title;
+  $("savedOverlay").classList.add("show");
+  try{ localStorage.removeItem(DRAFT_KEY); }catch(e){}
+  cachedFiles = null; // recent list is stale now
+}
+
+/* ================= recent ================= */
+let cachedFiles = null;
+async function renderRecent(){
+  const box = $("recentList");
+  if(!configured()){
+    setStatus("recentStatus","Open <b>Settings</b> to connect to GitHub first.","err");
+    box.innerHTML = ""; return;
+  }
+  setStatus("recentStatus",'<span class="spin">↻</span> Loading…',"busy");
+  try{
+    const files = await listEntryFiles();
+    cachedFiles = files;
+    if(!files.length){
+      setStatus("recentStatus","No entries in this batch yet — they'll appear here as you save them.","ok");
+      box.innerHTML = ""; return;
+    }
+    const top = files.slice(0, 30);
+    const loaded = await Promise.all(top.map(f => getEntry(f.id).then(e => ({f, e})).catch(() => null)));
+    clearStatus("recentStatus");
+    box.innerHTML = loaded.filter(Boolean).map(({f, e}) => {
+      const fl = e.data.fields || {};
+      const bits = [fl.ModelNum && ("Model " + fl.ModelNum), fl.SerialNum && ("S/N " + fl.SerialNum),
+                    fl.Source, fl.CatBy && ("by " + fl.CatBy)].filter(Boolean).join(" · ");
+      return '<div class="card entrycard" data-id="' + f.id + '">' +
+        '<span class="idchip">#' + f.id + '</span>' +
+        '<div class="t">' + esc(fl.Title || "(untitled)") + '</div>' +
+        '<div class="m">' + esc(bits || "") + '</div></div>';
+    }).join("");
+    box.querySelectorAll(".entrycard").forEach(el => {
+      el.addEventListener("click", () => editEntry(parseInt(el.dataset.id)));
+    });
+    if(files.length > 30){
+      box.innerHTML += '<div class="note" style="text-align:center">…and ' + (files.length-30) + ' more (all included in export)</div>';
+    }
+  }catch(e){
+    setStatus("recentStatus","Could not load: " + esc(e.message),"err");
+  }
+}
+async function editEntry(id){
+  try{
+    setStatus("recentStatus",'<span class="spin">↻</span> Opening #' + id + "…","busy");
+    const { sha, data } = await getEntry(id);
+    editing.id = id; editing.sha = sha; editing.existingMeta = data._meta || null;
+    fillForm(data.fields || {});
+    $("editBannerId").textContent = "#" + id;
+    $("editBanner").style.display = "block";
+    $("btnSave").textContent = "Save changes";
+    clearStatus("recentStatus");
+    switchView("entry");
+    window.scrollTo(0,0);
+    updateStoryCount();
+  }catch(e){
+    setStatus("recentStatus","Could not open #" + id + ": " + esc(e.message),"err");
+  }
+}
+
+/* ================= export ================= */
+function sqlEscape(v){
+  return "'" + String(v).replace(/\\/g,"\\\\").replace(/'/g,"\\'")
+      .replace(/\n/g,"\\n").replace(/\r/g,"\\r") + "'";
+}
+function rowToSql(entry){
+  const f = entry.fields || {};
+  const vals = COLUMNS.map(c => {
+    let v = (c === "IdNum") ? entry.idnum : f[c];
+    if(v === undefined || v === null || String(v).trim() === "") return "NULL";
+    if(NUMERIC.has(c)){
+      const n = parseInt(v, 10);
+      return isNaN(n) ? "NULL" : String(n);
+    }
+    return sqlEscape(v);
+  });
+  return "(" + vals.join(", ") + ")";
+}
+let builtSql = "";
+async function buildSql(){
+  clearStatus("exportStatus");
+  if(!configured()){ setStatus("exportStatus","Open <b>Settings</b> to connect to GitHub first.","err"); return; }
+  const btn = $("btnBuildSql");
+  btn.disabled = true; btn.innerHTML = '<span class="spin">↻</span> Building…';
+  try{
+    const files = await listEntryFiles();
+    if(!files.length){
+      setStatus("exportStatus","No entries to export yet.","err");
+      $("expCount").textContent = "0"; $("expRange").textContent = "–";
+      return;
+    }
+    const entries = [];
+    for(let i = 0; i < files.length; i += 10){
+      const chunk = await Promise.all(files.slice(i, i+10).map(f => getEntry(f.id).then(e => e.data)));
+      entries.push(...chunk);
+    }
+    entries.sort((a,b) => a.idnum - b.idnum);
+    const header = "-- LO*OP Center shadow-database export\n" +
+      "-- Generated " + new Date().toISOString() + "  (" + entries.length + " entries, IdNum " +
+      entries[0].idnum + "–" + entries[entries.length-1].idnum + ")\n" +
+      "-- Paste into phpMyAdmin → SQL tab of lizaloop_HCLEcatalog\n\n" +
+      "INSERT INTO `catalog` (" + COLUMNS.map(c => "`"+c+"`").join(", ") + ") VALUES\n";
+    builtSql = header + entries.map(rowToSql).join(",\n") + ";\n";
+    $("expCount").textContent = entries.length;
+    $("expRange").textContent = entries[0].idnum + "–" + entries[entries.length-1].idnum;
+    $("sqlOut").textContent = builtSql;
+    $("sqlOut").style.display = "block";
+    $("btnCopySql").disabled = false;
+    $("btnDlSql").disabled = false;
+    setStatus("exportStatus","SQL ready — copy it or download the .sql file.","ok");
+  }catch(e){
+    setStatus("exportStatus","Could not build: " + esc(e.message),"err");
+  }finally{
+    btn.disabled = false; btn.textContent = "Build SQL";
+  }
+}
+
+/* ================= views / events ================= */
+function switchView(name){
+  document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
+  $("view-" + name).classList.add("active");
+  document.querySelectorAll("nav button").forEach(b =>
+    b.classList.toggle("active", b.dataset.view === name));
+  $("actionbar").style.display = (name === "entry") ? "block" : "none";
+  if(name === "recent") renderRecent();
+  if(name === "export"){ $("expCount").textContent = cachedFiles ? cachedFiles.length : "–"; }
+  if(name === "settings") loadSettingsForm();
+}
+document.querySelectorAll("nav button").forEach(b =>
+  b.addEventListener("click", () => switchView(b.dataset.view)));
+
+$("btnSave").addEventListener("click", saveEntry);
+$("btnNewBlank").addEventListener("click", () => { $("savedOverlay").classList.remove("show"); resetForm(false); $("btnSave").textContent = "Save entry"; });
+$("btnNewSimilar").addEventListener("click", () => { $("savedOverlay").classList.remove("show"); resetForm(true); $("btnSave").textContent = "Save entry"; });
+$("cancelEdit").addEventListener("click", e => { e.preventDefault(); resetForm(false); $("btnSave").textContent = "Save entry"; });
+$("entryForm").addEventListener("input", saveDraft);
+
+function updateStoryCount(){
+  const v = $("f_AccrualComments").value;
+  $("storyCount").textContent = v.length ? (v.length + "/500") : "";
+}
+$("f_AccrualComments").addEventListener("input", updateStoryCount);
+
+/* settings */
+function loadSettingsForm(){
+  $("s_owner").value = cfg.owner || "";
+  $("s_repo").value = cfg.repo || "";
+  $("s_branch").value = cfg.branch || "main";
+  $("s_token").value = cfg.token || "";
+  $("s_catby").value = cfg.catby || "";
+  $("s_startid").value = cfg.startid || 3209;
+}
+$("btnSaveSettings").addEventListener("click", () => {
+  cfg.owner = $("s_owner").value.trim();
+  cfg.repo = $("s_repo").value.trim();
+  cfg.branch = $("s_branch").value.trim() || "main";
+  cfg.token = $("s_token").value.trim();
+  cfg.catby = $("s_catby").value.trim();
+  cfg.startid = parseInt($("s_startid").value, 10) || 3209;
+  saveCfg();
+  if(cfg.catby && !$("f_CatBy").value) $("f_CatBy").value = cfg.catby;
+  setStatus("settingsStatus","Saved on this device.","ok");
+});
+$("btnTest").addEventListener("click", async () => {
+  cfg.owner = $("s_owner").value.trim(); cfg.repo = $("s_repo").value.trim();
+  cfg.branch = $("s_branch").value.trim() || "main"; cfg.token = $("s_token").value.trim();
+  setStatus("settingsStatus",'<span class="spin">↻</span> Testing…',"busy");
+  try{
+    await gh("/repos/" + cfg.owner + "/" + cfg.repo);
+    const files = await listEntryFiles();
+    setStatus("settingsStatus","Connected ✓ — repo reachable, " + files.length + " entries in the batch.","ok");
+  }catch(e){
+    setStatus("settingsStatus","Connection failed: " + esc(e.message),"err");
+  }
+});
+
+/* export buttons */
+$("btnBuildSql").addEventListener("click", buildSql);
+$("btnCopySql").addEventListener("click", async () => {
+  try{ await navigator.clipboard.writeText(builtSql); setStatus("exportStatus","Copied to clipboard.","ok"); }
+  catch(e){ setStatus("exportStatus","Copy failed — long-press the SQL text to select it.","err"); }
+});
+$("btnDlSql").addEventListener("click", () => {
+  const blob = new Blob([builtSql], {type:"application/sql"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "loop_center_new_entries.sql";
+  document.body.appendChild(a); a.click(); a.remove();
+});
+
+/* init */
+loadDraft();
+if(cfg.catby && !$("f_CatBy").value) $("f_CatBy").value = cfg.catby;
+updateStoryCount();
+if(!configured()) switchView("settings");
+</script>
+</body>
+</html>
