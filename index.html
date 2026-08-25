@@ -370,7 +370,10 @@
 
 <!-- ============ RECENT VIEW ============ -->
 <div class="view" id="view-recent">
-  <h2>Entries in this batch</h2>
+  <h2>Catalog</h2>
+  <div class="field" style="margin:0 0 10px">
+    <input type="text" id="recentSearch" placeholder="Search all items — IdNum or title…" autocomplete="off">
+  </div>
   <div class="status" id="recentStatus"></div>
   <div id="recentList"></div>
 </div>
@@ -378,6 +381,9 @@
 <!-- ============ PHOTOS VIEW ============ -->
 <div class="view" id="view-photos">
   <h2>Photos — pick an item</h2>
+  <div class="field" style="margin:0 0 10px">
+    <input type="text" id="photoSearch" placeholder="Search all items — IdNum or title…" autocomplete="off">
+  </div>
   <div class="status" id="photosStatus"></div>
   <div id="photosList"></div>
 </div>
@@ -408,8 +414,8 @@
     <div class="card"><div class="n" id="expCount">–</div><div class="l">entries</div></div>
     <div class="card"><div class="n" id="expRange">–</div><div class="l">IdNum range</div></div>
   </div>
-  <div class="note" style="margin-bottom:10px">Generates <code>INSERT</code> statements matching the
-    <code>catalog</code> table in Liza's database, ready to paste into phpMyAdmin's SQL tab.</div>
+  <div class="note" style="margin-bottom:10px">Generates SQL for Liza's database: <code>INSERT</code> for new
+    entries and <code>REPLACE</code> for edited existing items, ready to paste into phpMyAdmin's SQL tab.</div>
   <div class="status" id="exportStatus"></div>
   <div class="actionrow" style="display:flex;gap:10px;margin-bottom:12px">
     <button class="primary" id="btnBuildSql" style="flex:1">Build SQL</button>
@@ -533,17 +539,53 @@ async function gh(path, opts){
     err.status = res.status;
     throw err;
   }
+  if(opts.method && opts.method !== "GET") treeCache = { at: 0, tree: null }; // writes invalidate listings
   return res.json();
 }
 const repoPath = p => "/repos/" + cfg.owner + "/" + cfg.repo + "/contents/" + p;
 const ENTRY_DIR = "data/entries";
 
-async function listEntryFiles(){
-  const list = await gh(repoPath(ENTRY_DIR) + "?ref=" + cfg.branch, {allow404:true});
-  if(!list || !Array.isArray(list)) return [];
-  return list.filter(f => /^\d+\.json$/.test(f.name))
-             .map(f => ({ id: parseInt(f.name), sha: f.sha, name: f.name }))
+/* Git Trees API — one call lists the whole repo (no 1000-file cap) */
+let treeCache = { at: 0, tree: null };
+async function repoTree(fresh){
+  if(!fresh && treeCache.tree && Date.now() - treeCache.at < 5000) return treeCache.tree;
+  const res = await gh("/repos/" + cfg.owner + "/" + cfg.repo + "/git/trees/" +
+                       encodeURIComponent(cfg.branch) + "?recursive=1");
+  treeCache = { at: Date.now(), tree: res.tree || [] };
+  return treeCache.tree;
+}
+async function listEntryFiles(fresh){
+  const tree = await repoTree(fresh);
+  return tree.filter(t => /^data\/entries\/\d+\.json$/.test(t.path))
+             .map(t => { const name = t.path.split("/").pop();
+                         return { id: parseInt(name), sha: t.sha, name }; })
              .sort((a,b) => b.id - a.id);
+}
+
+/* base catalog: snapshot of Liza's existing records (data/base.json) */
+let basePromise = null;
+function loadBase(){
+  if(!basePromise){
+    basePromise = fetch("data/base.json", {cache:"no-cache"})
+      .then(r => { if(!r.ok) throw new Error("base.json " + r.status); return r.json(); })
+      .catch(e => { basePromise = null; return { maxId: 0, count: 0, items: {} }; });
+  }
+  return basePromise;
+}
+/* one item, override-aware: data/entries/<id>.json beats base.json */
+async function getItemRecord(id){
+  try{
+    const { sha, data } = await getEntry(id);
+    return { sha, data, exists: true };
+  }catch(e){
+    if(e.status !== 404) throw e;
+    const base = await loadBase();
+    const bf = base.items[String(id)];
+    if(!bf) throw new Error("No record #" + id + " in catalog");
+    return { sha: null, exists: false,
+             data: { idnum: id, fields: Object.assign({}, bf),
+                     _meta: { imported: true, type: "catalog" } } };
+  }
 }
 async function getEntry(id){
   const f = await gh(repoPath(ENTRY_DIR + "/" + id + ".json") + "?ref=" + cfg.branch);
@@ -634,7 +676,15 @@ async function saveEntry(){
       });
       if(Array.isArray(prev.StillImage)) fields.StillImage = prev.StillImage;
       const data = wrapEntry(editing.id, fields, editing.existingMeta);
-      await putEntry(editing.id, data, editing.sha, "Update entry " + editing.id + ": " + fields.Title);
+      try{
+        await putEntry(editing.id, data, editing.sha, "Update entry " + editing.id + ": " + fields.Title);
+      }catch(e){
+        if(e.status === 422 || e.status === 409){
+          // another device wrote this entry meanwhile — refresh sha and retry once
+          const cur = await getEntry(editing.id);
+          await putEntry(editing.id, data, cur.sha, "Update entry " + editing.id + ": " + fields.Title);
+        } else throw e;
+      }
       afterSaved(editing.id, fields);
     } else {
       // assign next free id, retrying on collision with another device
@@ -678,52 +728,121 @@ function afterSaved(id, fields){
   cachedFiles = null; // recent list is stale now
 }
 
-/* ================= recent ================= */
+/* ================= catalog browsing / search ================= */
 let cachedFiles = null;
+const titleCache = new Map(); // id -> Title (for new entries not in base)
+
+async function titleOf(id, base){
+  const b = base.items[String(id)];
+  if(b) return b.Title || "(untitled)";
+  if(titleCache.has(id)) return titleCache.get(id);
+  try{
+    const { data } = await getEntry(id);
+    const t = (data.fields || {}).Title || "(untitled)";
+    titleCache.set(id, t);
+    return t;
+  }catch(e){ return "(entry #" + id + ")"; }
+}
+
+/* search across base catalog + new entries; q = id fragment or title text */
+async function searchMerged(q){
+  const base = await loadBase();
+  const files = await listEntryFiles();
+  const overrideIds = new Set(files.map(f => f.id));
+  const ql = q.toLowerCase(), isNum = /^\d+$/.test(q);
+  const hits = [];
+  // new entries first (not in base)
+  const newIds = files.map(f => f.id).filter(id => !base.items[String(id)]);
+  if(!isNum){
+    // need titles to match text; fetch uncached (bounded)
+    const missing = newIds.filter(id => !titleCache.has(id)).slice(0, 40);
+    await Promise.all(missing.map(id => titleOf(id, base)));
+  }
+  for(const id of newIds){
+    const t = titleCache.get(id) || "";
+    if((isNum && String(id).includes(q)) || (!isNum && t.toLowerCase().includes(ql)))
+      hits.push({ id, title: t || "(entry #" + id + ")", isNew: true, changed: false });
+  }
+  for(const [idStr, f] of Object.entries(base.items)){
+    if(hits.length >= 100) break;
+    const t = f.Title || "";
+    if((isNum && idStr.includes(q)) || (!isNum && t.toLowerCase().includes(ql)))
+      hits.push({ id: parseInt(idStr), title: t, isNew: false, changed: overrideIds.has(parseInt(idStr)),
+                  sub: [f.ModelNum, f.SerialNum, f.Medium && ("medium " + f.Medium)].filter(x => x && x !== "0").join(" · ") });
+  }
+  // exact id match to the top
+  hits.sort((a,b) => (String(b.id) === q) - (String(a.id) === q));
+  return hits;
+}
+
+function hitCard(h, extra){
+  const badge = h.isNew ? '<span class="idchip">new #' + h.id + '</span>'
+              : h.changed ? '<span class="idchip">edited #' + h.id + '</span>'
+              : '<span class="idchip" style="color:var(--muted);background:var(--bg)">#' + h.id + '</span>';
+  return '<div class="card entrycard" data-id="' + h.id + '" data-title="' + esc(h.title || "") + '">' +
+    (extra || "") + badge +
+    '<div class="t">' + esc(h.title || "(untitled)") + '</div>' +
+    '<div class="m">' + esc(h.sub || "") + '</div></div>';
+}
+
 async function renderRecent(){
   const box = $("recentList");
   if(!configured()){
     setStatus("recentStatus","Open <b>Settings</b> to connect to GitHub first.","err");
     box.innerHTML = ""; return;
   }
+  const q = $("recentSearch").value.trim();
   setStatus("recentStatus",'<span class="spin">↻</span> Loading…',"busy");
   try{
-    const files = await listEntryFiles();
-    cachedFiles = files;
-    if(!files.length){
-      setStatus("recentStatus","No entries in this batch yet — they'll appear here as you save them.","ok");
-      box.innerHTML = ""; return;
+    if(q){
+      const hits = await searchMerged(q);
+      clearStatus("recentStatus");
+      box.innerHTML = hits.length ? hits.map(h => hitCard(h)).join("")
+        : '<div class="note">No matches for “' + esc(q) + '”.</div>';
+    } else {
+      const files = await listEntryFiles();
+      cachedFiles = files;
+      if(!files.length){
+        setStatus("recentStatus","No new or edited entries yet. Use the search box to find any of the " +
+          (await loadBase()).count + " existing catalog items.","ok");
+        box.innerHTML = ""; return;
+      }
+      const base = await loadBase();
+      const top = files.slice(0, 30);
+      const loaded = await Promise.all(top.map(f => getEntry(f.id).then(e => ({f, e})).catch(() => null)));
+      clearStatus("recentStatus");
+      box.innerHTML = "<div class='note' style='margin-bottom:8px'>New and edited entries (these will be in the export):</div>" +
+        loaded.filter(Boolean).map(({f, e}) => {
+          const fl = e.data.fields || {};
+          titleCache.set(f.id, fl.Title || "(untitled)");
+          const imported = e.data._meta && e.data._meta.imported;
+          const bits = [fl.ModelNum && ("Model " + fl.ModelNum), fl.SerialNum && ("S/N " + fl.SerialNum),
+                        fl.Source, fl.CatBy && ("by " + fl.CatBy)].filter(x => x && x !== "0").join(" · ");
+          return hitCard({ id: f.id, title: fl.Title, isNew: !imported, changed: !!imported, sub: bits });
+        }).join("");
+      if(files.length > 30)
+        box.innerHTML += '<div class="note" style="text-align:center">…and ' + (files.length-30) + ' more (all included in export)</div>';
     }
-    const top = files.slice(0, 30);
-    const loaded = await Promise.all(top.map(f => getEntry(f.id).then(e => ({f, e})).catch(() => null)));
-    clearStatus("recentStatus");
-    box.innerHTML = loaded.filter(Boolean).map(({f, e}) => {
-      const fl = e.data.fields || {};
-      const bits = [fl.ModelNum && ("Model " + fl.ModelNum), fl.SerialNum && ("S/N " + fl.SerialNum),
-                    fl.Source, fl.CatBy && ("by " + fl.CatBy)].filter(Boolean).join(" · ");
-      return '<div class="card entrycard" data-id="' + f.id + '">' +
-        '<span class="idchip">#' + f.id + '</span>' +
-        '<div class="t">' + esc(fl.Title || "(untitled)") + '</div>' +
-        '<div class="m">' + esc(bits || "") + '</div></div>';
-    }).join("");
-    box.querySelectorAll(".entrycard").forEach(el => {
-      el.addEventListener("click", () => editEntry(parseInt(el.dataset.id)));
-    });
-    if(files.length > 30){
-      box.innerHTML += '<div class="note" style="text-align:center">…and ' + (files.length-30) + ' more (all included in export)</div>';
-    }
+    box.querySelectorAll(".entrycard").forEach(el =>
+      el.addEventListener("click", () => editEntry(parseInt(el.dataset.id))));
   }catch(e){
     setStatus("recentStatus","Could not load: " + esc(e.message),"err");
   }
 }
+let recentSearchTimer = null;
+$("recentSearch").addEventListener("input", () => {
+  clearTimeout(recentSearchTimer);
+  recentSearchTimer = setTimeout(renderRecent, 350);
+});
+
 async function editEntry(id){
   try{
     setStatus("recentStatus",'<span class="spin">↻</span> Opening #' + id + "…","busy");
-    const { sha, data } = await getEntry(id);
+    const { sha, data, exists } = await getItemRecord(id);
     editing.id = id; editing.sha = sha; editing.existingMeta = data._meta || null;
     editing.existingFields = data.fields || {};
     fillForm(data.fields || {});
-    $("editBannerId").textContent = "#" + id;
+    $("editBannerId").textContent = "#" + id + (data._meta && data._meta.imported && !exists ? " (existing catalog item)" : "");
     $("editBanner").style.display = "block";
     $("btnSave").textContent = "Save changes";
     clearStatus("recentStatus");
@@ -738,7 +857,25 @@ async function editEntry(id){
 /* ================= photos ================= */
 const REPO_DIR = "repository";
 const PUBLIC_BASE = "https://www.loopcntr.net/repository/";
-const photo = { itemId:null, itemTitle:"", saved:[], pending:[], busy:false };
+const photo = { itemId:null, itemTitle:"", saved:[], pending:[], remote:[], busy:false };
+
+/* photos that already exist on loopcntr.net (old catalog items) — their slots are reserved
+   so new uploads never collide with files already on Liza's server */
+function remotePhotosFromFields(id, fields){
+  const found = new Map();
+  const consider = v => {
+    if(!v) return;
+    (Array.isArray(v) ? v : [v]).forEach(u => {
+      const m = String(u).match(new RegExp("loopcntr\\.net\\/repository\\/(" + id + "(?:-\\d+)?\\.jpg)$", "i"));
+      if(m){
+        const slot = photoSlot(String(id), m[1]);
+        if(slot !== null && !found.has(m[1])) found.set(m[1], { name: m[1], slot, remote: true });
+      }
+    });
+  };
+  consider(fields.URI); consider(fields.ThumbNailURI); consider(fields.SmallThumbURI); consider(fields.StillImage);
+  return Array.from(found.values()).sort((a,b) => a.slot - b.slot);
+}
 
 function photoName(id, slot){ return slot === 1 ? id + ".jpg" : id + "-" + slot + ".jpg"; }
 function photoSlot(id, name){
@@ -750,9 +887,10 @@ function rawUrl(name){
   return "https://raw.githubusercontent.com/" + cfg.owner + "/" + cfg.repo + "/" + cfg.branch +
          "/" + REPO_DIR + "/" + encodeURIComponent(name);
 }
-async function listRepoDir(){
-  const list = await gh(repoPath(REPO_DIR) + "?ref=" + cfg.branch, {allow404:true});
-  return (list && Array.isArray(list)) ? list : [];
+async function listRepoDir(fresh){
+  const tree = await repoTree(fresh);
+  return tree.filter(t => t.path.startsWith(REPO_DIR + "/") && t.type === "blob")
+             .map(t => ({ name: t.path.slice(REPO_DIR.length + 1), sha: t.sha }));
 }
 function photosOf(dirList, id){
   return dirList.map(f => ({name:f.name, sha:f.sha, slot:photoSlot(id, f.name)}))
@@ -790,44 +928,64 @@ async function renderPhotoList(){
     setStatus("photosStatus","Open <b>Settings</b> to connect to GitHub first.","err");
     box.innerHTML = ""; return;
   }
+  const q = $("photoSearch").value.trim();
   setStatus("photosStatus",'<span class="spin">↻</span> Loading…',"busy");
   try{
-    const [files, dirList] = await Promise.all([listEntryFiles(), listRepoDir()]);
-    if(!files.length){
-      setStatus("photosStatus","No entries yet — add items on the New entry tab first.","ok");
-      box.innerHTML = ""; return;
+    const dirList = await listRepoDir();
+    const countChip = id => {
+      const n = photosOf(dirList, id).length;
+      return n ? '<span class="photocount">📷 ' + n + '</span>'
+               : '<span class="photocount none">no photos</span>';
+    };
+    let hits;
+    if(q){
+      hits = await searchMerged(q);
+    } else {
+      // recently added / edited entries first
+      const base = await loadBase();
+      const files = await listEntryFiles();
+      const loaded = await Promise.all(files.slice(0, 30).map(f =>
+        getEntry(f.id).then(e => ({f, e})).catch(() => null)));
+      hits = loaded.filter(Boolean).map(({f, e}) => {
+        const fl = e.data.fields || {};
+        titleCache.set(f.id, fl.Title || "(untitled)");
+        return { id: f.id, title: fl.Title, sub: [fl.ModelNum, fl.SerialNum].filter(x => x && x !== "0").join(" · ") };
+      });
     }
-    const loaded = await Promise.all(files.slice(0, 50).map(f =>
-      getEntry(f.id).then(e => ({f, e})).catch(() => null)));
     clearStatus("photosStatus");
-    box.innerHTML = loaded.filter(Boolean).map(({f, e}) => {
-      const fl = e.data.fields || {};
-      const n = photosOf(dirList, f.id).length;
-      const chip = n ? '<span class="photocount">📷 ' + n + '</span>'
-                     : '<span class="photocount none">no photos</span>';
-      return '<div class="card entrycard" data-pid="' + f.id + '" data-ptitle="' + esc(fl.Title || "") + '">' +
-        chip + '<div class="t">#' + f.id + ' — ' + esc(fl.Title || "(untitled)") + '</div>' +
-        '<div class="m">' + esc([fl.ModelNum, fl.SerialNum].filter(Boolean).join(" · ")) + '</div></div>';
-    }).join("");
+    if(!hits.length){
+      box.innerHTML = '<div class="note">' + (q ? "No matches for “" + esc(q) + "”."
+        : "No new entries yet — use the search box to find any existing catalog item, or add items on the New entry tab.") + '</div>';
+      return;
+    }
+    box.innerHTML = hits.map(h => hitCard(h, countChip(h.id))).join("");
     box.querySelectorAll(".entrycard").forEach(el =>
-      el.addEventListener("click", () => openPhotoItem(parseInt(el.dataset.pid), el.dataset.ptitle)));
+      el.addEventListener("click", () => openPhotoItem(parseInt(el.dataset.id), el.dataset.title)));
   }catch(e){
     setStatus("photosStatus","Could not load: " + esc(e.message),"err");
   }
 }
+let photoSearchTimer = null;
+$("photoSearch").addEventListener("input", () => {
+  clearTimeout(photoSearchTimer);
+  photoSearchTimer = setTimeout(renderPhotoList, 350);
+});
 
 /* --- per-item photo grid --- */
 async function openPhotoItem(id, title){
   photo.itemId = id; photo.itemTitle = title || "";
   photo.pending.forEach(p => URL.revokeObjectURL(p.url));
-  photo.pending = []; photo.saved = [];
+  photo.pending = []; photo.saved = []; photo.remote = [];
   $("photoItemTitle").textContent = "#" + id + " — " + (title || "");
   $("photoNamingExample").innerHTML = "<code>" + id + ".jpg</code>, <code>" + id + "-2.jpg</code>…";
   switchView("photoitem");
   setStatus("photoStatus",'<span class="spin">↻</span> Loading photos…',"busy");
   try{
-    const dirList = await listRepoDir();
+    const [dirList, rec] = await Promise.all([listRepoDir(), getItemRecord(id)]);
     photo.saved = photosOf(dirList, id);
+    const savedNames = new Set(photo.saved.map(p => p.name));
+    photo.remote = remotePhotosFromFields(id, rec.data.fields || {})
+                     .filter(r => !savedNames.has(r.name)); // a repo file with the same name supersedes
     clearStatus("photoStatus");
   }catch(e){
     setStatus("photoStatus","Could not load photos: " + esc(e.message),"err");
@@ -836,6 +994,9 @@ async function openPhotoItem(id, title){
 }
 function renderPhotoGrid(){
   const g = $("photoGrid");
+  const remoteHtml = photo.remote.map(p =>
+    '<div class="ph"><img src="' + PUBLIC_BASE + p.name + '" alt="">' +
+    '<span class="tag">on loopcntr · ' + p.name + '</span></div>').join("");
   const savedHtml = photo.saved.map(p =>
     '<div class="ph"><img src="' + rawUrl(p.name) + '" alt="">' +
     '<button class="del" data-del-saved="' + p.name + '">✕</button>' +
@@ -844,7 +1005,7 @@ function renderPhotoGrid(){
     '<div class="ph pending"><img src="' + p.url + '" alt="">' +
     '<button class="del" data-del-pending="' + i + '">✕</button>' +
     '<span class="tag">new</span></div>').join("");
-  g.innerHTML = savedHtml + pendHtml ||
+  g.innerHTML = remoteHtml + savedHtml + pendHtml ||
     '<div class="note" style="grid-column:1/-1">No photos yet — take the first one.</div>';
   g.querySelectorAll("[data-del-pending]").forEach(b => b.addEventListener("click", () => {
     const i = parseInt(b.dataset.delPending);
@@ -891,8 +1052,8 @@ async function savePhotos(){
   const id = photo.itemId;
   try{
     for(const p of photo.pending.slice()){
-      // recompute used slots each time (multi-device safe); fill lowest gap
-      const used = new Set(photo.saved.map(s => s.slot));
+      // recompute used slots each time (multi-device safe); remote slots on loopcntr are reserved
+      const used = new Set(photo.saved.map(s => s.slot).concat(photo.remote.map(r => r.slot)));
       let slot = 1;
       while(used.has(slot)) slot++;
       let name = photoName(id, slot);
@@ -907,7 +1068,7 @@ async function savePhotos(){
         }catch(e){
           if((e.status === 422 || e.status === 409) && tries < 6){
             tries++; slot++;
-            while(photo.saved.some(s => s.slot === slot)) slot++;
+            while(photo.saved.some(s => s.slot === slot) || photo.remote.some(r => r.slot === slot)) slot++;
             name = photoName(id, slot);
           } else throw e;
         }
@@ -950,9 +1111,10 @@ async function deleteSavedPhoto(name){
 }
 
 async function updateEntryPhotoFields(id){
-  const { sha, data } = await getEntry(id);
+  const { sha, data } = await getItemRecord(id); // materializes existing catalog items on first photo
   data.fields = data.fields || {};
-  const urls = photo.saved.map(p => PUBLIC_BASE + p.name);
+  const all = photo.remote.concat(photo.saved).sort((a,b) => a.slot - b.slot);
+  const urls = all.map(p => PUBLIC_BASE + p.name);
   const ourUriRe = new RegExp("^" + PUBLIC_BASE.replace(/[.*+?^${}()|[\]\\/]/g, "\\$&") + id + "(-\\d+)?\\.jpg$");
   if(urls.length){
     data.fields.StillImage = urls;
@@ -963,7 +1125,18 @@ async function updateEntryPhotoFields(id){
   }
   data._meta = data._meta || {};
   data._meta.updated = new Date().toISOString();
-  await putEntry(id, data, sha, "Update photo fields for entry " + id);
+  try{
+    await putEntry(id, data, sha, "Update photo fields for entry " + id);
+  }catch(e){
+    if(e.status === 422 || e.status === 409){
+      const cur = await getEntry(id);
+      cur.data.fields = Object.assign({}, cur.data.fields, { StillImage: data.fields.StillImage, URI: data.fields.URI });
+      if(!data.fields.StillImage) delete cur.data.fields.StillImage;
+      if(!data.fields.URI) delete cur.data.fields.URI;
+      cur.data._meta = Object.assign({}, cur.data._meta, { updated: new Date().toISOString() });
+      await putEntry(id, cur.data, cur.sha, "Update photo fields for entry " + id);
+    } else throw e;
+  }
   cachedFiles = null;
 }
 
@@ -977,11 +1150,12 @@ function rowToSql(entry){
   const vals = COLUMNS.map(c => {
     let v = (c === "IdNum") ? entry.idnum : f[c];
     if(Array.isArray(v)) v = v.join(", ");
-    if(v === undefined || v === null || String(v).trim() === "") return "NULL";
+    if(v === undefined || v === null) return "NULL";
     if(NUMERIC.has(c)){
       const n = parseInt(v, 10);
       return isNaN(n) ? "NULL" : String(n);
     }
+    // empty strings are kept as '' (existing rows distinguish '' from NULL)
     return sqlEscape(v);
   });
   return "(" + vals.join(", ") + ")";
@@ -1005,18 +1179,30 @@ async function buildSql(){
       entries.push(...chunk);
     }
     entries.sort((a,b) => a.idnum - b.idnum);
+    const isImported = e => e._meta && e._meta.imported;
+    const newE = entries.filter(e => !isImported(e));
+    const updE = entries.filter(isImported);
     const hasPhotoArrays = entries.some(e => Array.isArray((e.fields || {}).StillImage));
     const alterNote = hasPhotoArrays
       ? "-- NOTE: some rows carry a list of photo URLs in StillImage (repurposed field).\n" +
-        "-- The live table defines StillImage as char(1); widen it BEFORE running this insert:\n" +
+        "-- The live table defines StillImage as char(1); widen it BEFORE running this SQL:\n" +
         "--   ALTER TABLE `catalog` MODIFY `StillImage` VARCHAR(2000) DEFAULT NULL;\n\n"
       : "";
+    const colList = "(" + COLUMNS.map(c => "`"+c+"`").join(", ") + ")";
+    let body = "";
+    if(newE.length){
+      body += "-- " + newE.length + " NEW entries (IdNum " + newE[0].idnum + "–" + newE[newE.length-1].idnum + ")\n" +
+        "INSERT INTO `catalog` " + colList + " VALUES\n" + newE.map(rowToSql).join(",\n") + ";\n\n";
+    }
+    if(updE.length){
+      body += "-- " + updE.length + " UPDATED existing catalog items (full-row replace)\n" +
+        "REPLACE INTO `catalog` " + colList + " VALUES\n" + updE.map(rowToSql).join(",\n") + ";\n";
+    }
+    if(!body){ setStatus("exportStatus","No entries to export yet.","err"); return; }
     const header = "-- LO*OP Center shadow-database export\n" +
-      "-- Generated " + new Date().toISOString() + "  (" + entries.length + " entries, IdNum " +
-      entries[0].idnum + "–" + entries[entries.length-1].idnum + ")\n" +
-      "-- Paste into phpMyAdmin → SQL tab of lizaloop_HCLEcatalog\n\n" +
-      "INSERT INTO `catalog` (" + COLUMNS.map(c => "`"+c+"`").join(", ") + ") VALUES\n";
-    builtSql = alterNote + header + entries.map(rowToSql).join(",\n") + ";\n";
+      "-- Generated " + new Date().toISOString() + "  (" + newE.length + " new, " + updE.length + " updated)\n" +
+      "-- Paste into phpMyAdmin → SQL tab of lizaloop_HCLEcatalog\n\n";
+    builtSql = alterNote + header + body;
     $("expCount").textContent = entries.length;
     $("expRange").textContent = entries[0].idnum + "–" + entries[entries.length-1].idnum;
     $("sqlOut").textContent = builtSql;
