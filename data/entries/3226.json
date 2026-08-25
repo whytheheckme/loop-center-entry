@@ -1,0 +1,29 @@
+{
+ "idnum": 3226,
+ "fields": {
+  "Title": "Virtual Micro Pentium 4 Mini-Tower",
+  "Description": "Intel D845GVB Motherboard, Pentium 4, 2x 256MB RAM, ATI AGP Graphics Card, CD-RW drive, removable HD caddy",
+  "Creator": "Virtual Micro",
+  "SerialNum": "49269",
+  "ItemCondition": "f",
+  "Functional": "u",
+  "ConditionNts": "Scratches in case, inside looks fine",
+  "Fragility": "d",
+  "Color": "grey",
+  "Material": "mp",
+  "Dimensions": "H 17, W 8, D 18",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-25T22:36:02.346Z",
+  "type": "hardware",
+  "updated": "2026-08-25T22:36:02.346Z"
+ }
+}
