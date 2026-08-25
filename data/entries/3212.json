@@ -1,0 +1,35 @@
+{
+ "idnum": 3212,
+ "fields": {
+  "Title": "UMAX S-6E",
+  "Description": "SCSI Flatbed Scanner",
+  "Creator": "UMAX Data Systems Inc.",
+  "WherMade": "Taiwan",
+  "Created": "~1997",
+  "ModelNum": "UMAX S-6E",
+  "SerialNum": "H69016B5839",
+  "PartNum": "960123-03",
+  "OtherNum": "Type No: H690",
+  "ConformsTo": "FCC ID: G2E-H690",
+  "ItemCondition": "f",
+  "Functional": "u",
+  "ConditionNts": "Outside case dirty, inside of bed scanner looks clean and intact",
+  "Fragility": "f",
+  "Color": "beige",
+  "Material": "mix",
+  "Dimensions": "H 5.5, W 13, D 20",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-25T20:14:49.350Z",
+  "type": "hardware",
+  "updated": "2026-08-25T20:14:49.350Z"
+ }
+}
