@@ -1,0 +1,32 @@
+{
+ "idnum": 3285,
+ "fields": {
+  "Title": "Mitsuba 11\" Data Display Monitor",
+  "Description": "IBM compatible monitor",
+  "Creator": "Mitsuba",
+  "Created": "1987",
+  "ModelNum": "510A",
+  "SerialNum": "51160416",
+  "ConformsTo": "FCC ID: DQG7JPGM1211",
+  "ItemCondition": "f",
+  "Functional": "u",
+  "ConditionNts": "dirty, some discoloring",
+  "Fragility": "f",
+  "Color": "beige",
+  "Material": "p",
+  "Dimensions": "H 13, W 13, D 15",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-26T16:51:15.855Z",
+  "type": "hardware",
+  "updated": "2026-08-26T16:51:15.855Z"
+ }
+}
