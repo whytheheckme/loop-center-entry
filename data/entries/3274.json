@@ -1,0 +1,32 @@
+{
+ "idnum": 3274,
+ "fields": {
+  "Title": "Fujitsu DX2400",
+  "Description": "Wide format dot matrix printer",
+  "Creator": "Fujitsu",
+  "WherMade": "Japan",
+  "Created": "08/1989",
+  "ModelNum": "M3348A",
+  "SerialNum": "MA 90297",
+  "ConformsTo": "FCC ID: C9S69NDP008A3",
+  "ItemCondition": "vg",
+  "Functional": "u",
+  "Fragility": "f",
+  "Color": "beige",
+  "Material": "mp",
+  "Dimensions": "H 6, W 23, D 13",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-26T16:11:09.678Z",
+  "type": "hardware",
+  "updated": "2026-08-26T16:11:09.678Z"
+ }
+}
