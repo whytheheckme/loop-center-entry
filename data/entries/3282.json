@@ -1,0 +1,30 @@
+{
+ "idnum": 3282,
+ "fields": {
+  "Title": "NEC AccuSync 95F",
+  "Description": "NEC VGA 17\" CRT",
+  "Creator": "NEC",
+  "WherMade": "Dong Guan, China",
+  "ModelNum": "AS95F",
+  "SerialNum": "2800682YJ",
+  "PartNum": "N9902",
+  "ItemCondition": "vg",
+  "Functional": "u",
+  "Fragility": "f",
+  "Color": "grey",
+  "Dimensions": "H 18, W 18, D 18",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-26T16:40:28.577Z",
+  "type": "hardware",
+  "updated": "2026-08-26T16:40:28.577Z"
+ }
+}
