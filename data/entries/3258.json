@@ -1,0 +1,32 @@
+{
+ "idnum": 3258,
+ "fields": {
+  "Title": "Apple duodisk",
+  "Description": "Dual 5.25\" Floppy for Apple II",
+  "Creator": "Apple",
+  "WherMade": "Japan",
+  "ModelNum": "A9M0108",
+  "SerialNum": "408672YE",
+  "PartNum": "825-0609-B",
+  "ConformsTo": "FCC ID: BCG9Z6A9M0108",
+  "ItemCondition": "f",
+  "Functional": "u",
+  "ConditionNts": "dirty",
+  "Fragility": "f",
+  "Color": "beige",
+  "Dimensions": "H 3, W 14.5, D 8",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-26T05:46:29.945Z",
+  "type": "hardware",
+  "updated": "2026-08-26T05:46:29.945Z"
+ }
+}
