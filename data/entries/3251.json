@@ -1,0 +1,28 @@
+{
+ "idnum": 3251,
+ "fields": {
+  "Title": "Sol Terminal Computer Systems Manual",
+  "Description": "Sol-20 Computer Systems Manual",
+  "Creator": "Processor Technology",
+  "WherMade": "Pleasanton, California, USA",
+  "Created": "1979",
+  "ModelNum": "20",
+  "ItemCondition": "g",
+  "Functional": "u",
+  "Fragility": "vf",
+  "Color": "black",
+  "Material": "papr",
+  "Dimensions": "H 3, W 10, D 11",
+  "Collection": "2900",
+  "Type": "1",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-26T05:21:57.452Z",
+  "type": "hardware",
+  "updated": "2026-08-26T05:21:57.452Z"
+ }
+}
