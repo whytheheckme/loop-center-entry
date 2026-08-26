@@ -1,0 +1,29 @@
+{
+ "idnum": 3260,
+ "fields": {
+  "Title": "ELMO TRV-25G Slide Projector",
+  "Description": "Color CCD Slide Projector",
+  "Creator": "ELMO",
+  "WherMade": "Japan",
+  "ModelNum": "TRV-25G",
+  "SerialNum": "221634",
+  "ItemCondition": "vg",
+  "Functional": "u",
+  "Fragility": "f",
+  "Color": "grey",
+  "Dimensions": "H 4, W 11, D 12",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-26T05:50:32.466Z",
+  "type": "hardware",
+  "updated": "2026-08-26T05:50:32.466Z"
+ }
+}
