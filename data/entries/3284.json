@@ -1,0 +1,26 @@
+{
+ "idnum": 3284,
+ "fields": {
+  "Title": "Data Transfer Switch",
+  "Description": "4-input serial switch with two null modem adapters and 9-pin  serial cable",
+  "SerialNum": "LC062094",
+  "ItemCondition": "g",
+  "Functional": "u",
+  "Fragility": "d",
+  "Color": "grey",
+  "Dimensions": "H 2, W 8, D 7",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-26T16:47:07.971Z",
+  "type": "hardware",
+  "updated": "2026-08-26T16:47:07.971Z"
+ }
+}
