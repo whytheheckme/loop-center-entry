@@ -1,0 +1,32 @@
+{
+ "idnum": 3257,
+ "fields": {
+  "Title": "Apple Modem",
+  "Description": "300 Baud Apple Modem",
+  "Creator": "Apple",
+  "WherMade": "USA",
+  "ModelNum": "A9M0300",
+  "SerialNum": "LA042602",
+  "PartNum": "825-0620-B",
+  "ConformsTo": "FCC ID: BCG794 MODEM 300",
+  "ItemCondition": "vg",
+  "Functional": "u",
+  "Fragility": "f",
+  "Color": "beige",
+  "Material": "p",
+  "Dimensions": "H 1, W 5, D 9",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-26T05:43:16.484Z",
+  "type": "hardware",
+  "updated": "2026-08-26T05:43:16.484Z"
+ }
+}
