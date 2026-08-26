@@ -1,0 +1,29 @@
+{
+ "idnum": 3275,
+ "fields": {
+  "Title": "digital (DEC) Tape Drive",
+  "Description": "Take backup drive for DEC equipment",
+  "Creator": "digital",
+  "WherMade": "USA",
+  "ModelNum": "TK50Z-GA",
+  "SerialNum": "AB91005PV3",
+  "ItemCondition": "vg",
+  "Functional": "u",
+  "Fragility": "d",
+  "Color": "white",
+  "Dimensions": "H 5.5, W 13, D 11",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-26T16:16:23.391Z",
+  "type": "hardware",
+  "updated": "2026-08-26T16:16:23.391Z"
+ }
+}
