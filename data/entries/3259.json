@@ -1,0 +1,31 @@
+{
+ "idnum": 3259,
+ "fields": {
+  "Title": "Commodore 64",
+  "Description": "Commodore 64 computer unit only",
+  "Creator": "Commodore",
+  "WherMade": "USA",
+  "ModelNum": "64",
+  "SerialNum": "P5071325B",
+  "ConformsTo": "FCC ID: BR98YV-64",
+  "ItemCondition": "vg",
+  "Functional": "u",
+  "Fragility": "f",
+  "Color": "brown",
+  "Material": "p",
+  "Dimensions": "H 3, W 16, D 8",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-26T05:48:18.584Z",
+  "type": "hardware",
+  "updated": "2026-08-26T05:48:18.584Z"
+ }
+}
