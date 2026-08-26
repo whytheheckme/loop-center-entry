@@ -1,0 +1,27 @@
+{
+ "idnum": 3242,
+ "fields": {
+  "Title": "IBM AT Clone",
+  "Description": "Unmarked AT Clone",
+  "WherMade": "USA",
+  "ItemCondition": "f",
+  "Functional": "u",
+  "ConditionNts": "Scratches on top case, missing 5.25\" cover",
+  "Fragility": "d",
+  "Color": "beige",
+  "Dimensions": "H 5, W 21, D 17",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-26T00:56:10.452Z",
+  "type": "hardware",
+  "updated": "2026-08-26T00:56:10.452Z"
+ }
+}
