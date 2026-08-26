@@ -1,0 +1,29 @@
+{
+ "idnum": 3269,
+ "fields": {
+  "Title": "Atari 850 Port Expander",
+  "Description": "Adds four RS-232-C serial ports and one Centronics-compatible parallel printer port to Atari 8-bit computers",
+  "Creator": "Atari",
+  "ModelNum": "Atari 850",
+  "SerialNum": "169561",
+  "ItemCondition": "vg",
+  "Functional": "u",
+  "ConditionNts": "Has a link cable and possibly power supply?",
+  "Fragility": "f",
+  "Color": "beige",
+  "Dimensions": "H 2, W 10, D 7",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-26T15:54:47.887Z",
+  "type": "hardware",
+  "updated": "2026-08-26T15:54:47.887Z"
+ }
+}
