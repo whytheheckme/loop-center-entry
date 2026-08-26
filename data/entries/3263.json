@@ -1,0 +1,32 @@
+{
+ "idnum": 3263,
+ "fields": {
+  "Title": "Atari 400",
+  "Description": "Atari 400 Console",
+  "Creator": "Atari",
+  "WherMade": "Hong Kong",
+  "Created": "1983",
+  "ModelNum": "Atari 400",
+  "SerialNum": "AV032469",
+  "ConformsTo": "FCC ID: BPA83A400",
+  "ItemCondition": "f",
+  "Functional": "u",
+  "Fragility": "f",
+  "Color": "beige",
+  "Material": "p",
+  "Dimensions": "H 5, W 14, D 11",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-26T05:56:36.576Z",
+  "type": "hardware",
+  "updated": "2026-08-26T05:56:36.576Z"
+ }
+}
