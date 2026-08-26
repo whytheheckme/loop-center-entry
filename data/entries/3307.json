@@ -1,0 +1,31 @@
+{
+ "idnum": 3307,
+ "fields": {
+  "Title": "IMSAI 8080",
+  "Description": "IMSAI 8080, machine only",
+  "Creator": "IMS Associates, Inc",
+  "ModelNum": "8080",
+  "ItemCondition": "vg",
+  "Functional": "u",
+  "Fragility": "vf",
+  "Color": "blue",
+  "Material": "mt",
+  "Dimensions": "H 7, W 17, D20",
+  "Source": "Lane Community College",
+  "Location": "rtf",
+  "LocNotes": "On loan to RTF",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-26T20:16:41.970Z",
+  "type": "hardware",
+  "updated": "2026-08-26T20:16:41.970Z"
+ }
+}
