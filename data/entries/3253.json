@@ -1,0 +1,31 @@
+{
+ "idnum": 3253,
+ "fields": {
+  "Title": "Atari 800",
+  "Description": "Atari 800",
+  "Creator": "Atari",
+  "WherMade": "Sunnyvale, CA",
+  "ModelNum": "Atari 800",
+  "ConformsTo": "FCC ID: TV-#639",
+  "ItemCondition": "f",
+  "Functional": "u",
+  "ConditionNts": "has modded wire out bottom, label is destroyed",
+  "Fragility": "f",
+  "Color": "dark beige",
+  "Material": "p",
+  "Dimensions": "H 3.5, W 15.5, D 12",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-26T05:28:16.522Z",
+  "type": "hardware",
+  "updated": "2026-08-26T05:28:16.522Z"
+ }
+}
