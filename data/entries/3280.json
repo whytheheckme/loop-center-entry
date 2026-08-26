@@ -1,0 +1,30 @@
+{
+ "idnum": 3280,
+ "fields": {
+  "Title": "Apple Desktop Bus Mouse",
+  "Description": "ADB Mouse for early Macintoshes",
+  "Creator": "Apple",
+  "WherMade": "Taiwan",
+  "ModelNum": "G5431",
+  "ConformsTo": "FC ID: BCGA65431",
+  "ItemCondition": "g",
+  "Functional": "u",
+  "Fragility": "d",
+  "Color": "grey",
+  "Material": "p",
+  "Dimensions": "H 1, W 2, D 3",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-26T16:31:48.385Z",
+  "type": "hardware",
+  "updated": "2026-08-26T16:31:48.385Z"
+ }
+}
