@@ -1,0 +1,29 @@
+{
+ "idnum": 3298,
+ "fields": {
+  "Title": "Cogent Research XTM 110 Workstation",
+  "Description": "Part of the cluster from Lane Community College",
+  "Creator": "Cogent Research",
+  "ModelNum": "XTM 110",
+  "SerialNum": "No labelling",
+  "ItemCondition": "g",
+  "Functional": "u",
+  "Fragility": "d",
+  "Color": "black",
+  "Dimensions": "H 5, W 15, D 15",
+  "Source": "Lane Community College",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-26T20:03:15.236Z",
+  "type": "hardware",
+  "updated": "2026-08-26T20:03:15.236Z"
+ }
+}
