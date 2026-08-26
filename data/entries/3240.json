@@ -1,0 +1,33 @@
+{
+ "idnum": 3240,
+ "fields": {
+  "Title": "IBM PC XT 5160",
+  "Description": "IBM PC XT with 5.25\" FD and HD",
+  "Creator": "IBM",
+  "WherMade": "Armonk, NY",
+  "Created": "~1983",
+  "ModelNum": "5160",
+  "SerialNum": "1491415160",
+  "ConformsTo": "FCC ID: AN09SA5160",
+  "ItemCondition": "p",
+  "Functional": "u",
+  "ConditionNts": "Exterior case quite rusted, corrosion seen on inside motherboard",
+  "Fragility": "d",
+  "Color": "Grey",
+  "Material": "mp",
+  "Dimensions": "H 5, W 20, D 15",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-26T00:43:50.311Z",
+  "type": "hardware",
+  "updated": "2026-08-26T00:43:50.311Z"
+ }
+}
