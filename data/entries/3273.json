@@ -1,0 +1,30 @@
+{
+ "idnum": 3273,
+ "fields": {
+  "Title": "IBM 5152 Personal Computer Graphics Printer",
+  "Description": "Dot matrix printer for IBM PC and XT",
+  "Creator": "IBM",
+  "WherMade": "Japan",
+  "ModelNum": "5152002",
+  "ConformsTo": "FCC ID: BKM9A85152002",
+  "ItemCondition": "vg",
+  "Functional": "u",
+  "Fragility": "f",
+  "Color": "grey",
+  "Material": "p",
+  "Dimensions": "H 4, W 14, D 12",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-26T16:07:47.722Z",
+  "type": "hardware",
+  "updated": "2026-08-26T16:07:47.722Z"
+ }
+}
