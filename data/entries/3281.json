@@ -1,0 +1,29 @@
+{
+ "idnum": 3281,
+ "fields": {
+  "Title": "iM Acoustic Data Coupler",
+  "Description": "Handset serial data coupler modem",
+  "Creator": "Info-Max",
+  "ModelNum": "311",
+  "SerialNum": "FO 0044",
+  "ItemCondition": "f",
+  "Functional": "u",
+  "Fragility": "f",
+  "Color": "blue",
+  "Material": "mix",
+  "Dimensions": "H 4, W 7, D 12",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-26T16:35:07.060Z",
+  "type": "hardware",
+  "updated": "2026-08-26T16:35:07.060Z"
+ }
+}
