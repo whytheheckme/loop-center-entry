@@ -1,0 +1,31 @@
+{
+ "idnum": 3272,
+ "fields": {
+  "Title": "Micromodem II",
+  "Description": "Mdoem for Apple II",
+  "Creator": "Hayes Microcomputer Products, Inc.",
+  "Created": "1981",
+  "ModelNum": "icromodel II",
+  "SerialNum": "254011",
+  "PartNum": "09-005",
+  "ConformsTo": "FCC ID: BFJ9D9-08-0050",
+  "ItemCondition": "g",
+  "Functional": "u",
+  "Fragility": "vf",
+  "Color": "green",
+  "Dimensions": "H 3, W 7, D .5",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-26T16:02:04.816Z",
+  "type": "hardware",
+  "updated": "2026-08-26T16:02:04.816Z"
+ }
+}
