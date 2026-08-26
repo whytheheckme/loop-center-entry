@@ -1,0 +1,32 @@
+{
+ "idnum": 3290,
+ "fields": {
+  "Title": "The Big Picture IQ",
+  "Description": "Monitor for Cogent workstation",
+  "Creator": "E-Machines",
+  "WherMade": "USA",
+  "ModelNum": "1008IQ",
+  "SerialNum": "5799",
+  "ConformsTo": "FCC ID: F644I61000B",
+  "ItemCondition": "p",
+  "Functional": "u",
+  "ConditionNts": "bezel separated, plastic damaged",
+  "Fragility": "f",
+  "Color": "black",
+  "Material": "mix",
+  "Dimensions": "H 13, W 16, D 15",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-26T19:42:59.142Z",
+  "type": "hardware",
+  "updated": "2026-08-26T19:42:59.142Z"
+ }
+}
