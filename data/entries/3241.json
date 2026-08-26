@@ -1,0 +1,25 @@
+{
+ "idnum": 3241,
+ "fields": {
+  "Title": "Custom Pentium 4 PC",
+  "Description": "Pentium 4 PC, 2x 512MB, 60GB HDD",
+  "ItemCondition": "g",
+  "Functional": "u",
+  "Fragility": "d",
+  "Color": "grey",
+  "Dimensions": "H 16, W 8, D 18",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-26T00:49:28.740Z",
+  "type": "hardware",
+  "updated": "2026-08-26T00:49:28.740Z"
+ }
+}
