@@ -1,0 +1,29 @@
+{
+ "idnum": 3246,
+ "fields": {
+  "Title": "iMac (Mid 2006 17-inch)",
+  "Description": "iMac (Mid 2006 17-inch), Missing bottom plate",
+  "Creator": "Apple",
+  "Created": "2006",
+  "ModelNum": "A1195",
+  "ItemCondition": "p",
+  "Functional": "u",
+  "ConditionNts": "scratched screen",
+  "Fragility": "f",
+  "Color": "white",
+  "Dimensions": "H 17, W 17, D 7",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-26T01:20:20.568Z",
+  "type": "hardware",
+  "updated": "2026-08-26T01:20:20.568Z"
+ }
+}
