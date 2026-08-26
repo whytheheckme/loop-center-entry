@@ -1,0 +1,30 @@
+{
+ "idnum": 3276,
+ "fields": {
+  "Title": "Apollo Odyssey Portable Overhead Projector",
+  "Description": "Portable overhead projector for transparencies",
+  "Creator": "Apollo",
+  "WherMade": "Taiwan",
+  "ModelNum": "11000",
+  "SerialNum": "97A05156",
+  "ItemCondition": "e",
+  "Functional": "u",
+  "ConditionNts": "with case",
+  "Fragility": "f",
+  "Color": "beige",
+  "Dimensions": "H 5, W 14, D 19",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-26T16:19:18.107Z",
+  "type": "hardware",
+  "updated": "2026-08-26T16:19:18.107Z"
+ }
+}
