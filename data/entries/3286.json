@@ -1,0 +1,29 @@
+{
+ "idnum": 3286,
+ "fields": {
+  "Title": "Gateway Pentium 4 Mini-Tower",
+  "Description": "Gateway Pentium 4 Mini-Tower, with Windows XP",
+  "Created": "09/25/2002",
+  "ModelNum": "MFATXPNT ESX 500S",
+  "SerialNum": "0028476084",
+  "ItemCondition": "vg",
+  "Functional": "u",
+  "Fragility": "d",
+  "Color": "grey",
+  "Material": "p",
+  "Dimensions": "H 17, W 8, D 17",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-26T16:55:29.292Z",
+  "type": "hardware",
+  "updated": "2026-08-26T16:55:29.292Z"
+ }
+}
