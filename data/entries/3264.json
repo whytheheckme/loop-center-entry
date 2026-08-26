@@ -1,0 +1,31 @@
+{
+ "idnum": 3264,
+ "fields": {
+  "Title": "Apple II",
+  "Description": "A2S1 - Original Apple II",
+  "Creator": "Apple",
+  "WherMade": "USA",
+  "ModelNum": "A2S0016",
+  "SerialNum": "A2S1-78772",
+  "PartNum": "825-0205-A",
+  "ItemCondition": "p",
+  "Functional": "u",
+  "ConditionNts": "board damage, missing ROM, scratches on top",
+  "Fragility": "f",
+  "Color": "beige",
+  "Dimensions": "H 4.5, W 15, D 19",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-26T06:00:55.903Z",
+  "type": "hardware",
+  "updated": "2026-08-26T06:00:55.903Z"
+ }
+}
