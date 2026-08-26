@@ -1,0 +1,28 @@
+{
+ "idnum": 3244,
+ "fields": {
+  "Title": "IBM AT Clone",
+  "Description": "NETIX 386 AT Clone",
+  "Creator": "NETIX",
+  "WherMade": "USA",
+  "ItemCondition": "f",
+  "Functional": "u",
+  "ConditionNts": "Scratches on top case, missing 5.25\" cover",
+  "Fragility": "d",
+  "Color": "grey",
+  "Dimensions": "H 5, W 21, D 17",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-26T01:05:51.739Z",
+  "type": "hardware",
+  "updated": "2026-08-26T01:05:51.739Z"
+ }
+}
