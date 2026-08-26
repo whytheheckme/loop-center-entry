@@ -1,0 +1,32 @@
+{
+ "idnum": 3233,
+ "fields": {
+  "Title": "Dell Dimension V450",
+  "Description": "Pentium 2 Tower PC",
+  "Creator": "Dell",
+  "Created": "~1999",
+  "ModelNum": "Dell Dimension V450",
+  "PartNum": "Service Tag 0NGRN",
+  "OtherNum": "Express Service Code 10-948-19",
+  "ItemCondition": "f",
+  "Functional": "u",
+  "ConditionNts": "minor case scuffs, no broken plastic",
+  "Fragility": "d",
+  "Color": "beige",
+  "Material": "mix",
+  "Dimensions": "H 17, W 7, D 16",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-26T00:18:23.764Z",
+  "type": "hardware",
+  "updated": "2026-08-26T00:18:23.764Z"
+ }
+}
