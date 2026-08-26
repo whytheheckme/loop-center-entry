@@ -1,0 +1,28 @@
+{
+ "idnum": 3277,
+ "fields": {
+  "Title": "IBM 5155 Portable PC",
+  "Description": "IBM Portable PC with carrying bag",
+  "Creator": "IBM",
+  "ModelNum": "5155",
+  "ConformsTo": "FCC ID: AN09SA5155",
+  "ItemCondition": "e",
+  "Functional": "u",
+  "Fragility": "f",
+  "Color": "grey",
+  "Dimensions": "H 6, W 20, D 17",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-26T16:23:10.300Z",
+  "type": "hardware",
+  "updated": "2026-08-26T16:23:10.300Z"
+ }
+}
