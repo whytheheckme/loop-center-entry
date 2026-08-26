@@ -19,7 +19,8 @@
   "StillImage": [
    "https://www.loopcntr.net/repository/3277.jpg",
    "https://www.loopcntr.net/repository/3277-2.jpg",
-   "https://www.loopcntr.net/repository/3277-3.jpg"
+   "https://www.loopcntr.net/repository/3277-3.jpg",
+   "https://www.loopcntr.net/repository/3277-4.jpg"
   ],
   "MovingImage": "n",
   "CatBy": "jk",
@@ -28,6 +29,6 @@
  "_meta": {
   "created": "2026-08-26T16:23:10.300Z",
   "type": "hardware",
-  "updated": "2026-08-26T16:37:23.820Z"
+  "updated": "2026-08-26T16:39:10.719Z"
  }
 }
