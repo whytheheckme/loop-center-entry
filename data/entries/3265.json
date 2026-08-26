@@ -1,0 +1,33 @@
+{
+ "idnum": 3265,
+ "fields": {
+  "Title": "Macintosh LC II",
+  "Description": "Apple Macintosh LC II",
+  "Creator": "Apple",
+  "WherMade": "Singapore",
+  "ModelNum": "M1700",
+  "SerialNum": "SG209FJWF01",
+  "PartNum": "825-0719-A",
+  "ConformsTo": "FCC ID: BCGM1700",
+  "ItemCondition": "f",
+  "Functional": "u",
+  "ConditionNts": "case is gross, looks good inside",
+  "Fragility": "f",
+  "Color": "beige",
+  "Material": "p",
+  "Dimensions": "H 2, W 12, D 16",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-26T06:04:42.533Z",
+  "type": "hardware",
+  "updated": "2026-08-26T06:04:42.533Z"
+ }
+}
