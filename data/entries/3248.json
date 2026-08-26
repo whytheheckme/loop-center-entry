@@ -1,0 +1,33 @@
+{
+ "idnum": 3248,
+ "fields": {
+  "Title": "Epson QX-10 System Unit",
+  "AltTitle": "Epson Q871A",
+  "Description": "System unit of the QX-10.",
+  "Creator": "Epson",
+  "WherMade": "Japan",
+  "ModelNum": "Q701A",
+  "SerialNum": "340460",
+  "ConformsTo": "FCC ID: BKM9A8Q701A",
+  "ItemCondition": "g",
+  "Functional": "u",
+  "ConditionNts": "Unit is in good shape, not very useful without accessories",
+  "Fragility": "f",
+  "Color": "beige",
+  "Material": "mp",
+  "Dimensions": "H 4.5, W 20, D 13",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-26T05:09:33.019Z",
+  "type": "hardware",
+  "updated": "2026-08-26T05:09:33.019Z"
+ }
+}
