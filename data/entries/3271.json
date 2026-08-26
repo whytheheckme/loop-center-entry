@@ -1,0 +1,31 @@
+{
+ "idnum": 3271,
+ "fields": {
+  "Title": "Epson RX-80F/T Printer",
+  "Description": "Dot matrix printer",
+  "Creator": "Epson",
+  "WherMade": "Japan",
+  "ModelNum": "P80RB",
+  "SerialNum": "420351",
+  "ConformsTo": "FCC ID: BKM9A8P80RB",
+  "ItemCondition": "g",
+  "Functional": "u",
+  "ConditionNts": "missing top dust cover",
+  "Fragility": "f",
+  "Color": "beige",
+  "Dimensions": "H 4, W 15, D 12",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-26T15:58:56.610Z",
+  "type": "hardware",
+  "updated": "2026-08-26T15:58:56.610Z"
+ }
+}
