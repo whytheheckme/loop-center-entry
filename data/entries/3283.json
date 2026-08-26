@@ -1,0 +1,30 @@
+{
+ "idnum": 3283,
+ "fields": {
+  "Title": "Zoom Modem V.42BIS",
+  "Description": "Serial V.42 Modem, with serial cable and power supply",
+  "Creator": "Zoom Telephonics, Inc",
+  "ModelNum": "Zoom/Modem V.42BIS",
+  "SerialNum": "487717",
+  "ConformsTo": "FCC ID: BDN9FM-17463-MD-E",
+  "ItemCondition": "g",
+  "Functional": "u",
+  "Fragility": "d",
+  "Color": "grey",
+  "Material": "mt",
+  "Dimensions": "H 1, W 8, D 12",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-26T16:44:18.091Z",
+  "type": "hardware",
+  "updated": "2026-08-26T16:44:18.091Z"
+ }
+}
