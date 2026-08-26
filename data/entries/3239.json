@@ -1,0 +1,30 @@
+{
+ "idnum": 3239,
+ "fields": {
+  "Title": "AST Advantage! 486SX/33",
+  "Description": "486 Desktop PC",
+  "Creator": "AST",
+  "ModelNum": "273W",
+  "SerialNum": "TW1E904029",
+  "PartNum": "501540-001",
+  "ItemCondition": "g",
+  "Functional": "u",
+  "Fragility": "d",
+  "Color": "grey",
+  "Material": "mp",
+  "Dimensions": "H 4, W 17, D 16",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-26T00:39:48.253Z",
+  "type": "hardware",
+  "updated": "2026-08-26T00:39:48.253Z"
+ }
+}
