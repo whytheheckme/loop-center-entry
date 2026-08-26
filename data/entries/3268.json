@@ -1,0 +1,30 @@
+{
+ "idnum": 3268,
+ "fields": {
+  "Title": "Apple II Power Supply",
+  "Description": "Power supply for Apple II, likely A2S1 based on serial",
+  "Creator": "Apple",
+  "ModelNum": "605-5703",
+  "SerialNum": "022538",
+  "ItemCondition": "g",
+  "Functional": "u",
+  "ConditionNts": "Missing bottom plate",
+  "Fragility": "f",
+  "Color": "gold",
+  "Material": "mt",
+  "Dimensions": "H 2, W 3, D 10",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-26T15:51:09.264Z",
+  "type": "hardware",
+  "updated": "2026-08-26T15:51:09.264Z"
+ }
+}
