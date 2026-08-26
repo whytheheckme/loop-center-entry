@@ -1,0 +1,31 @@
+{
+ "idnum": 3262,
+ "fields": {
+  "Title": "Apple Imagewriter Printer",
+  "Description": "Apple Imagewriter Printer",
+  "Creator": "Apple",
+  "WherMade": "Japan",
+  "ModelNum": "A9M0303",
+  "SerialNum": "535787",
+  "ConformsTo": "FCC ID: BCG9BUA9M0303PNTR",
+  "ItemCondition": "f",
+  "Functional": "u",
+  "ConditionNts": "quite dirty",
+  "Fragility": "f",
+  "Color": "beige",
+  "Dimensions": "H 4, W 16, D 12",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-26T05:54:03.263Z",
+  "type": "hardware",
+  "updated": "2026-08-26T05:54:03.263Z"
+ }
+}
