@@ -1,0 +1,29 @@
+{
+ "idnum": 3279,
+ "fields": {
+  "Title": "inmac T-Switch (parallel port)",
+  "Description": "2 input parallel port switch",
+  "Creator": "inmac",
+  "ModelNum": "372-2A",
+  "SerialNum": "M68199",
+  "ItemCondition": "g",
+  "Functional": "u",
+  "Fragility": "d",
+  "Color": "blue",
+  "Material": "mt",
+  "Dimensions": "H 3, W 10, D 7",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-26T16:29:13.691Z",
+  "type": "hardware",
+  "updated": "2026-08-26T16:29:13.691Z"
+ }
+}
