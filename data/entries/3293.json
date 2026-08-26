@@ -1,0 +1,27 @@
+{
+ "idnum": 3293,
+ "fields": {
+  "Title": "Cogent Research XTM 120 Resource Server",
+  "Description": "Part of the cluster from Lane Community College",
+  "Creator": "Cogent Research",
+  "ModelNum": "XTM 120",
+  "ItemCondition": "vg",
+  "Functional": "u",
+  "Fragility": "d",
+  "Color": "black",
+  "Dimensions": "H 5.5, W 19, D 15",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-26T19:52:10.339Z",
+  "type": "hardware",
+  "updated": "2026-08-26T19:52:10.339Z"
+ }
+}
