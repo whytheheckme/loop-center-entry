@@ -1,0 +1,31 @@
+{
+ "idnum": 3249,
+ "fields": {
+  "Title": "Tandy 1000 SX",
+  "Description": "IBM Compatible 8088 Machine",
+  "Creator": "Tandy",
+  "WherMade": "USA",
+  "Created": "1986",
+  "ModelNum": "25-1051B",
+  "SerialNum": "061714",
+  "ConformsTo": "FCC ID: AA099R25-1051B",
+  "ItemCondition": "f",
+  "Functional": "u",
+  "Fragility": "f",
+  "Color": "beige",
+  "Dimensions": "H 6, W 17, D 13",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-26T05:14:00.262Z",
+  "type": "hardware",
+  "updated": "2026-08-26T05:14:00.262Z"
+ }
+}
