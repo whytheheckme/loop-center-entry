@@ -1,0 +1,31 @@
+{
+ "idnum": 3247,
+ "fields": {
+  "Title": "Samtron Model SM430 CRT",
+  "Description": "12\" CRT",
+  "Creator": "Samtron",
+  "WherMade": "Korea",
+  "Created": "09/1990",
+  "SerialNum": "9033062662",
+  "ConformsTo": "FCC ID: CSY7Y6SM-430A",
+  "ItemCondition": "g",
+  "Functional": "u",
+  "Fragility": "f",
+  "Color": "beige",
+  "Material": "p",
+  "Dimensions": "H 13, W 12, D 12",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-26T05:04:56.933Z",
+  "type": "hardware",
+  "updated": "2026-08-26T05:04:56.933Z"
+ }
+}
