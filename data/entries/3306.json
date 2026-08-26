@@ -1,0 +1,29 @@
+{
+ "idnum": 3306,
+ "fields": {
+  "Title": "Cogent Research Keyboard",
+  "Description": "Part of the cluster from Lane Community College",
+  "Creator": "Cogent Research",
+  "ModelNum": "M8700A",
+  "ConformsTo": "FCC ID:  GJJ4AK M-8700",
+  "ItemCondition": "g",
+  "Functional": "u",
+  "Fragility": "d",
+  "Color": "black",
+  "Dimensions": "H 1, W 18, D 7",
+  "Source": "Lane Community College",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-26T20:11:22.478Z",
+  "type": "hardware",
+  "updated": "2026-08-26T20:11:22.478Z"
+ }
+}
