@@ -1,0 +1,30 @@
+{
+ "idnum": 3255,
+ "fields": {
+  "Title": "IBM 8512 PS/2 Color Display",
+  "Description": "IBM 8512 PS/2 Color Display",
+  "Creator": "IBM",
+  "WherMade": "Korea",
+  "Created": "01/1989",
+  "ModelNum": "8512001",
+  "ConformsTo": "FCC ID: AN07NF8512",
+  "ItemCondition": "vg",
+  "Fragility": "f",
+  "Color": "grey",
+  "Material": "mix",
+  "Dimensions": "H 15, W 13.5, D 15.5",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-26T05:36:16.690Z",
+  "type": "hardware",
+  "updated": "2026-08-26T05:36:16.690Z"
+ }
+}
