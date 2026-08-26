@@ -1,0 +1,31 @@
+{
+ "idnum": 3237,
+ "fields": {
+  "Title": "digital Storage Expansion",
+  "Description": "SCSI hard drive, Likely for DECstation 5000.",
+  "Creator": "Digital Equipment Corporation",
+  "Created": "~1989",
+  "ModelNum": "RZ5X-DA",
+  "SerialNum": "AB004011IE",
+  "PartNum": "BA42A",
+  "ItemCondition": "g",
+  "Functional": "u",
+  "Fragility": "f",
+  "Color": "grey",
+  "Material": "mp",
+  "Dimensions": "H 4, W 18, D 16",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-26T00:31:37.514Z",
+  "type": "hardware",
+  "updated": "2026-08-26T00:31:37.514Z"
+ }
+}
