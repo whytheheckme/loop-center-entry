@@ -1,0 +1,29 @@
+{
+ "idnum": 3243,
+ "fields": {
+  "Title": "digital DECstation 5000/125",
+  "Description": "digital DECstation 5000/125, no accessories",
+  "Created": "~1991",
+  "ModelNum": "PM32B-ZY",
+  "SerialNum": "AB13902CVS",
+  "ItemCondition": "f",
+  "Functional": "u",
+  "ConditionNts": "deep case scratches, missing front plate",
+  "Fragility": "d",
+  "Color": "grey",
+  "Dimensions": "H 4, W 21, D 17",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-26T01:01:45.114Z",
+  "type": "hardware",
+  "updated": "2026-08-26T01:01:45.114Z"
+ }
+}
