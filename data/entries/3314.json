@@ -1,0 +1,31 @@
+{
+ "idnum": 3314,
+ "fields": {
+  "Title": "Shamrock 13\" VGA CRT",
+  "Description": "13\" VGA CRT Monitor",
+  "Creator": "Shamrock",
+  "Created": "11/1996",
+  "ModelNum": "C505L",
+  "SerialNum": "6BTTB0746352",
+  "ConformsTo": "FCC ID: IQX96C1569",
+  "ItemCondition": "g",
+  "Functional": "u",
+  "Fragility": "f",
+  "Color": "beige",
+  "Material": "mix",
+  "Dimensions": "H 14, W 14, D 15",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-27T01:48:14.465Z",
+  "type": "hardware",
+  "updated": "2026-08-27T01:48:14.465Z"
+ }
+}
