@@ -1,0 +1,29 @@
+{
+ "idnum": 3326,
+ "fields": {
+  "Title": "Watanabe MIPLOT Plotter",
+  "Description": "X-Y Axis Plotter",
+  "Creator": "Watanabe",
+  "ModelNum": "WX4671",
+  "SerialNum": "01396",
+  "ItemCondition": "f",
+  "Functional": "u",
+  "ConditionNts": "quite dirty",
+  "Fragility": "vf",
+  "Color": "grey",
+  "Dimensions": "H 4, W 21, D 24",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-27T02:28:33.628Z",
+  "type": "hardware",
+  "updated": "2026-08-27T02:28:33.628Z"
+ }
+}
