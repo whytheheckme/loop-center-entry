@@ -1,0 +1,31 @@
+{
+ "idnum": 3330,
+ "fields": {
+  "Title": "Apple 205W Power Adapter",
+  "Description": "Macintosh G4 Cube Power Supply",
+  "Creator": "Apple",
+  "WherMade": "Thailand",
+  "ModelNum": "M7886",
+  "SerialNum": "SG034D9FK59",
+  "ItemCondition": "f",
+  "Functional": "u",
+  "ConditionNts": "Dirty",
+  "Fragility": "f",
+  "Color": "grey",
+  "Material": "mt",
+  "Dimensions": "H 2, W 7, D 5",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-27T02:43:14.826Z",
+  "type": "hardware",
+  "updated": "2026-08-27T02:43:14.826Z"
+ }
+}
