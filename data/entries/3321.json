@@ -1,0 +1,30 @@
+{
+ "idnum": 3321,
+ "fields": {
+  "Title": "TRS-80 Expansion Interface",
+  "Description": "Expansion interface for TRS-80. With power supply",
+  "Creator": "Radio Shack",
+  "ModelNum": "26-1142-1",
+  "SerialNum": "020031",
+  "ItemCondition": "f",
+  "Functional": "u",
+  "ConditionNts": "has custom modded wires hanging out",
+  "Fragility": "f",
+  "Color": "grey",
+  "Material": "p",
+  "Dimensions": "H 4, W 16, D 8",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-27T02:12:54.072Z",
+  "type": "hardware",
+  "updated": "2026-08-27T02:12:54.072Z"
+ }
+}
