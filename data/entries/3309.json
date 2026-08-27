@@ -1,0 +1,30 @@
+{
+ "idnum": 3309,
+ "fields": {
+  "Title": "Apple Disk II",
+  "Description": "5.25\" floppy drive for Apple II series",
+  "Creator": "Apple",
+  "WherMade": "USA",
+  "ModelNum": "A2M0003",
+  "SerialNum": "874572",
+  "ConformsTo": "FCC IDL BCG9GRDISK2",
+  "ItemCondition": "g",
+  "Functional": "u",
+  "Fragility": "f",
+  "Color": "beige",
+  "Dimensions": "H 3.5, W 6, D 9",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-27T01:27:49.268Z",
+  "type": "hardware",
+  "updated": "2026-08-27T01:27:49.268Z"
+ }
+}
