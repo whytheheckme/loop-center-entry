@@ -1,0 +1,30 @@
+{
+ "idnum": 3311,
+ "fields": {
+  "Title": "iMac (15-inch Early 2003)",
+  "Description": "Lampshade iMac, 700 MHz 128MB 40 GB HD",
+  "Creator": "Apple",
+  "Created": "2003",
+  "ModelNum": "M6498",
+  "SerialNum": "QT235084MAY",
+  "ItemCondition": "f",
+  "Functional": "n",
+  "ConditionNts": "Bottom is not connected",
+  "Fragility": "vf",
+  "Color": "white",
+  "Dimensions": "H 20, W 16, D 11",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-27T01:35:38.180Z",
+  "type": "hardware",
+  "updated": "2026-08-27T01:35:38.180Z"
+ }
+}
