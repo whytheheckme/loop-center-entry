@@ -1,0 +1,31 @@
+{
+ "idnum": 3323,
+ "fields": {
+  "Title": "Lier-Siegler ADM-3A Terminal",
+  "Description": "Monitor and keyboard terminal",
+  "Creator": "Lier-Siegler",
+  "Created": "1977",
+  "ModelNum": "ADM-3A",
+  "SerialNum": "13870",
+  "ItemCondition": "f",
+  "Functional": "n",
+  "ConditionNts": "physically in pretty good condition, tube is busted and leaking",
+  "Fragility": "f",
+  "Color": "blue",
+  "Material": "mix",
+  "Dimensions": "H 14, W 15, D 20",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-27T02:19:49.407Z",
+  "type": "hardware",
+  "updated": "2026-08-27T02:19:49.407Z"
+ }
+}
