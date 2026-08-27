@@ -1,0 +1,27 @@
+{
+ "idnum": 3320,
+ "fields": {
+  "Title": "Tandy 1000 Personal Computer Keyboard",
+  "Description": "Keyboard for Tandy 1000",
+  "Creator": "Tandy",
+  "SerialNum": "129963",
+  "ItemCondition": "g",
+  "Functional": "u",
+  "Fragility": "d",
+  "Color": "grey",
+  "Dimensions": "H 8, W 16, D 1",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-27T02:09:05.520Z",
+  "type": "hardware",
+  "updated": "2026-08-27T02:09:05.520Z"
+ }
+}
