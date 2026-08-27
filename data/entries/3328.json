@@ -1,0 +1,31 @@
+{
+ "idnum": 3328,
+ "fields": {
+  "Title": "Macintosh 12\" RGB Display",
+  "Description": "DB-15 RGB Display for early Macintoshes",
+  "Creator": "Apple",
+  "Created": "09/1991",
+  "ModelNum": "M1299",
+  "SerialNum": "M113788DDT6",
+  "ConformsTo": "FCC ID: BCGM1296",
+  "ItemCondition": "f",
+  "Functional": "u",
+  "ConditionNts": "Very dirty",
+  "Fragility": "f",
+  "Color": "beige",
+  "Dimensions": "H 10, W 12, D 14",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-27T02:39:30.219Z",
+  "type": "hardware",
+  "updated": "2026-08-27T02:39:30.219Z"
+ }
+}
