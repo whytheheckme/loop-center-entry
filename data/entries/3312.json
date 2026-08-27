@@ -1,0 +1,31 @@
+{
+ "idnum": 3312,
+ "fields": {
+  "Title": "RIC 15\" VGA CRT",
+  "Description": "15\" VGA CRT Monitor with side speakers",
+  "Creator": "RIC",
+  "Created": "02/1999",
+  "ModelNum": "Model 770",
+  "SerialNum": "AOR990202669",
+  "ConformsTo": "FCC ID: HSUTRLDH-1764",
+  "ItemCondition": "vg",
+  "Functional": "u",
+  "Fragility": "f",
+  "Color": "beige",
+  "Material": "mix",
+  "Dimensions": "H 18, W 22, D 16",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-27T01:40:10.297Z",
+  "type": "hardware",
+  "updated": "2026-08-27T01:40:10.297Z"
+ }
+}
