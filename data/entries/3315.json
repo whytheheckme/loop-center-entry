@@ -1,0 +1,30 @@
+{
+ "idnum": 3315,
+ "fields": {
+  "Title": "IBM Personal System/2 Model 25",
+  "Description": "IBM Personal System/2 Model 25 - all in one PC",
+  "Creator": "IBM",
+  "ModelNum": "PS/2 Type 8525",
+  "SerialNum": "01471728525",
+  "ConformsTo": "FCC ID: ANO9SA85251",
+  "ItemCondition": "g",
+  "Functional": "u",
+  "Fragility": "f",
+  "Color": "grey",
+  "Material": "mix",
+  "Dimensions": "H 16, W 12, D 15",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-27T01:51:08.820Z",
+  "type": "hardware",
+  "updated": "2026-08-27T01:51:08.820Z"
+ }
+}
