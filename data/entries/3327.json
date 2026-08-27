@@ -1,0 +1,31 @@
+{
+ "idnum": 3327,
+ "fields": {
+  "Title": "Apple Duo Dock",
+  "Description": "Duo Dock with powerbook stuck inside!",
+  "Creator": "Apple",
+  "ModelNum": "M7779",
+  "SerialNum": "TF30506FG09",
+  "ConformsTo": "FCC ID: BCGM7779",
+  "ItemCondition": "g",
+  "Functional": "u",
+  "ConditionNts": "powerbook stuck inside!",
+  "Fragility": "d",
+  "Color": "beige",
+  "Material": "p",
+  "Dimensions": "H 5, W 12, D 16",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-27T02:37:06.372Z",
+  "type": "hardware",
+  "updated": "2026-08-27T02:37:06.372Z"
+ }
+}
