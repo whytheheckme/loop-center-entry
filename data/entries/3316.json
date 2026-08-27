@@ -1,0 +1,31 @@
+{
+ "idnum": 3316,
+ "fields": {
+  "Title": "Commodore Model 1702 Vidoe Monitor",
+  "Description": "13\" Composite CRT Monitor",
+  "Creator": "Commodore",
+  "Created": "06/1984",
+  "ModelNum": "1702",
+  "SerialNum": "XC1072054",
+  "ConformsTo": "FCC ID: ASI9OY008",
+  "ItemCondition": "f",
+  "Functional": "u",
+  "Fragility": "f",
+  "Color": "grey",
+  "Material": "mix",
+  "Dimensions": "H 14, W 15, D 16",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-27T01:56:42.790Z",
+  "type": "hardware",
+  "updated": "2026-08-27T01:56:42.790Z"
+ }
+}
