@@ -1,0 +1,28 @@
+{
+ "idnum": 3325,
+ "fields": {
+  "Title": "Canon VP2000",
+  "Description": "PC with built-in monitor",
+  "Creator": "Canon",
+  "ModelNum": "Vp2000",
+  "SerialNum": "E12015263",
+  "ItemCondition": "vg",
+  "Functional": "u",
+  "Fragility": "f",
+  "Color": "beige",
+  "Dimensions": "H 16, W 14, D 17",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-27T02:26:15.695Z",
+  "type": "hardware",
+  "updated": "2026-08-27T02:26:15.695Z"
+ }
+}
