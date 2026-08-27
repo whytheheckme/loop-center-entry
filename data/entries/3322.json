@@ -1,0 +1,29 @@
+{
+ "idnum": 3322,
+ "fields": {
+  "Title": "Convergent Technologies 11\" Terminal Monitor",
+  "Description": "Convergent Technologies 11\" Terminal Monitor",
+  "Creator": "Convergent Technologies",
+  "ModelNum": "64-00151",
+  "SerialNum": "000-3064",
+  "ItemCondition": "g",
+  "Functional": "u",
+  "Fragility": "f",
+  "Color": "grey",
+  "Material": "mix",
+  "Dimensions": "H 12, W 12, D 13",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-27T02:16:18.432Z",
+  "type": "hardware",
+  "updated": "2026-08-27T02:16:18.432Z"
+ }
+}
