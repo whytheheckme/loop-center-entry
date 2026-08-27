@@ -1,0 +1,31 @@
+{
+ "idnum": 3313,
+ "fields": {
+  "Title": "Micron 15\" VGA CRT",
+  "Description": "15\" VGA CRT Monitor",
+  "Creator": "Micron",
+  "Created": "01/1997",
+  "ModelNum": "LM-1764",
+  "SerialNum": "70500CR20194845D",
+  "ConformsTo": "FCC ID: BR8LM-1764",
+  "ItemCondition": "vg",
+  "Functional": "u",
+  "Fragility": "f",
+  "Color": "grey",
+  "Material": "mix",
+  "Dimensions": "H 16, W 16, D 17",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-27T01:42:40.732Z",
+  "type": "hardware",
+  "updated": "2026-08-27T01:42:40.732Z"
+ }
+}
