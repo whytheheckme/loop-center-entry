@@ -1,0 +1,27 @@
+{
+ "idnum": 3317,
+ "fields": {
+  "Title": "vip Touchscreen device (unknown)",
+  "Description": "Seemingly a touchscreen device that has a parallel port. No markings other than \"vip\"",
+  "Creator": "vip",
+  "ItemCondition": "g",
+  "Functional": "u",
+  "Fragility": "vf",
+  "Color": "black",
+  "Material": "mix",
+  "Dimensions": "H 15, W 12, D 1.5",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-27T01:59:52.903Z",
+  "type": "hardware",
+  "updated": "2026-08-27T01:59:52.903Z"
+ }
+}
