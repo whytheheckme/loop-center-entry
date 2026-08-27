@@ -27,10 +27,7 @@
   "Moves": "",
   "Resolution": "",
   "Software": "0",
-  "StillImage": [
-   "https://www.loopcntr.net/repository/1631.jpg",
-   "https://www.loopcntr.net/repository/1631-2.jpg"
-  ],
+  "StillImage": "n",
   "MovingImage": "n",
   "Identifier": "",
   "ModelNum": "",
@@ -68,7 +65,11 @@
   "History6": "",
   "History7": "",
   "History8": "",
-  "History9": ""
+  "History9": "",
+  "ImageArray": [
+   "https://www.loopcntr.net/repository/1631.jpg",
+   "https://www.loopcntr.net/repository/1631-2.jpg"
+  ]
  },
  "_meta": {
   "imported": true,

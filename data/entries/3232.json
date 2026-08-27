@@ -21,15 +21,16 @@
   "Type": "1",
   "MediaType": "9",
   "ItemType": "0",
-  "StillImage": [
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk",
+  "URI": "https://www.loopcntr.net/repository/3232.jpg",
+  "ImageArray": [
    "https://www.loopcntr.net/repository/3232.jpg",
    "https://www.loopcntr.net/repository/3232-2.jpg",
    "https://www.loopcntr.net/repository/3232-3.jpg",
    "https://www.loopcntr.net/repository/3232-4.jpg"
-  ],
-  "MovingImage": "n",
-  "CatBy": "jk",
-  "URI": "https://www.loopcntr.net/repository/3232.jpg"
+  ]
  },
  "_meta": {
   "created": "2026-08-25T23:17:25.172Z",

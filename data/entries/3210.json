@@ -23,7 +23,8 @@
   "MovingImage": "n",
   "CatBy": "jk",
   "URI": "https://www.loopcntr.net/repository/3210.jpg",
-  "StillImage": [
+  "StillImage": "n",
+  "ImageArray": [
    "https://www.loopcntr.net/repository/3210.jpg",
    "https://www.loopcntr.net/repository/3210-2.jpg",
    "https://www.loopcntr.net/repository/3210-3.jpg",

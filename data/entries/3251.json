@@ -16,13 +16,14 @@
   "Collection": "2900",
   "Type": "1",
   "ItemType": "0",
-  "StillImage": [
-   "https://www.loopcntr.net/repository/3251.jpg",
-   "https://www.loopcntr.net/repository/3251-2.jpg"
-  ],
+  "StillImage": "n",
   "MovingImage": "n",
   "CatBy": "jk",
-  "URI": "https://www.loopcntr.net/repository/3251.jpg"
+  "URI": "https://www.loopcntr.net/repository/3251.jpg",
+  "ImageArray": [
+   "https://www.loopcntr.net/repository/3251.jpg",
+   "https://www.loopcntr.net/repository/3251-2.jpg"
+  ]
  },
  "_meta": {
   "created": "2026-08-26T05:21:57.452Z",

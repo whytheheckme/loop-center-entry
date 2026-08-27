@@ -20,13 +20,14 @@
   "Type": "1",
   "MediaType": "9",
   "ItemType": "0",
-  "StillImage": [
-   "https://www.loopcntr.net/repository/3274.jpg",
-   "https://www.loopcntr.net/repository/3274-2.jpg"
-  ],
+  "StillImage": "n",
   "MovingImage": "n",
   "CatBy": "jk",
-  "URI": "https://www.loopcntr.net/repository/3274.jpg"
+  "URI": "https://www.loopcntr.net/repository/3274.jpg",
+  "ImageArray": [
+   "https://www.loopcntr.net/repository/3274.jpg",
+   "https://www.loopcntr.net/repository/3274-2.jpg"
+  ]
  },
  "_meta": {
   "created": "2026-08-26T16:11:09.678Z",

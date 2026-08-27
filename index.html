@@ -504,7 +504,7 @@
 <script>
 "use strict";
 /* ================= schema ================= */
-const COLUMNS = ["IdNum","Title","Description","DescComment","SubjectTop","DonorNotes","WherMade","Color","Material","ItemCondition","ConditionNts","Fragility","Functional","Power","ToC","IsPart","IsVer","HasPart","HasVer","Creator","Publisher","Contributor","AddlAuth","Created","Copyrighted","DateCR","Available","Medium","Type","Format","ItemType","Dimensions","Extent","MediaType","Moves","Resolution","Software","StillImage","MovingImage","Weight","Identifier","ModelNum","SerialNum","PartNum","SeriesNum","OtherNum","ToDo","Location","LocNotes","Interim","Box","Loc","ToGo","AddCom","CatBy","EditBy","AltTitle","BibCit","SubKes","Description1","Source","Relation","ConformsTo","Coverage","RightsMGMT","Format1","BitDepth","Resolution1","NatlLang","ProgLang","PropDisp","DateScan","ProcInit","FormatBP","URI","ThumbNailURI","AbIint","IntInit","InstrMeth","Audience","AudLev","Mediator","ItemReferences","IsReferencedBy","Replaces","ReplacedBy","Requires","RequiredBy","AccessRights","RightsHolder","License","Provenance","Spacial","Temporal","AccrualComments","AccrualMethod","AccrualPeriodicity","AccPol","Collection","Wiki","Blog","TravelingExhibit","SocialMedia","SmallThumbURI","History6","History7","History8","History9"];
+const COLUMNS = ["IdNum","Title","Description","DescComment","SubjectTop","DonorNotes","WherMade","Color","Material","ItemCondition","ConditionNts","Fragility","Functional","Power","ToC","IsPart","IsVer","HasPart","HasVer","Creator","Publisher","Contributor","AddlAuth","Created","Copyrighted","DateCR","Available","Medium","Type","Format","ItemType","Dimensions","Extent","MediaType","Moves","Resolution","Software","StillImage","MovingImage","Weight","Identifier","ModelNum","SerialNum","PartNum","SeriesNum","OtherNum","ToDo","Location","LocNotes","Interim","Box","Loc","ToGo","AddCom","CatBy","EditBy","AltTitle","BibCit","SubKes","Description1","Source","Relation","ConformsTo","Coverage","RightsMGMT","Format1","BitDepth","Resolution1","NatlLang","ProgLang","PropDisp","DateScan","ProcInit","FormatBP","URI","ThumbNailURI","AbIint","IntInit","InstrMeth","Audience","AudLev","Mediator","ItemReferences","IsReferencedBy","Replaces","ReplacedBy","Requires","RequiredBy","AccessRights","RightsHolder","License","Provenance","Spacial","Temporal","AccrualComments","AccrualMethod","AccrualPeriodicity","AccPol","Collection","Wiki","Blog","TravelingExhibit","SocialMedia","SmallThumbURI","History6","History7","History8","History9","ImageArray"];
 const NUMERIC = new Set(["IdNum","IsPart","IsVer","HasPart","HasVer","Type","ItemType","MediaType","Loc","Relation","Format1","NatlLang","ProgLang","PropDisp","IntInit","ItemReferences","IsReferencedBy","Replaces","ReplacedBy","Requires","RequiredBy","AccessRights","License","AccrualMethod","AccrualPeriodicity","Collection"]);
 // Form fields (id="f_<Column>") are discovered from the DOM.
 const FORM_FIELDS = Array.from(document.querySelectorAll('[id^="f_"]')).map(el => el.id.slice(2));
@@ -712,7 +712,8 @@ async function saveEntry(){
       Object.keys(prev).forEach(k => {
         if(!FORM_FIELDS.includes(k) && fields[k] === undefined) fields[k] = prev[k];
       });
-      if(Array.isArray(prev.StillImage)) fields.StillImage = prev.StillImage;
+      if(Array.isArray(prev.StillImage) && fields.ImageArray === undefined) fields.ImageArray = prev.StillImage; // migrate legacy
+      if(Array.isArray(fields.StillImage)) delete fields.StillImage;
       const data = wrapEntry(editing.id, fields, editing.existingMeta);
       try{
         await putEntry(editing.id, data, editing.sha, "Update entry " + editing.id + ": " + fields.Title);
@@ -945,7 +946,9 @@ function remotePhotosFromFields(id, fields){
       }
     });
   };
-  consider(fields.URI); consider(fields.ThumbNailURI); consider(fields.SmallThumbURI); consider(fields.StillImage);
+  consider(fields.URI); consider(fields.ThumbNailURI); consider(fields.SmallThumbURI);
+  consider(fields.ImageArray);
+  if(Array.isArray(fields.StillImage)) consider(fields.StillImage); // legacy entries before ImageArray existed
   return Array.from(found.values()).sort((a,b) => a.slot - b.slot);
 }
 
@@ -1191,11 +1194,12 @@ async function updateEntryPhotoFields(id){
   const all = photo.remote.concat(photo.saved).sort((a,b) => a.slot - b.slot);
   const urls = all.map(p => PUBLIC_BASE + p.name);
   const ourUriRe = new RegExp("^" + PUBLIC_BASE.replace(/[.*+?^${}()|[\]\\/]/g, "\\$&") + id + "(-\\d+)?\\.jpg$");
+  if(Array.isArray(data.fields.StillImage)) delete data.fields.StillImage; // migrate legacy array out of StillImage
   if(urls.length){
-    data.fields.StillImage = urls;
+    data.fields.ImageArray = urls;
     if(!data.fields.URI || ourUriRe.test(data.fields.URI)) data.fields.URI = urls[0];
   } else {
-    if(Array.isArray(data.fields.StillImage)) delete data.fields.StillImage;
+    delete data.fields.ImageArray;
     if(data.fields.URI && ourUriRe.test(data.fields.URI)) delete data.fields.URI;
   }
   data._meta = data._meta || {};
@@ -1205,9 +1209,10 @@ async function updateEntryPhotoFields(id){
   }catch(e){
     if(e.status === 422 || e.status === 409){
       const cur = await getEntry(id);
-      cur.data.fields = Object.assign({}, cur.data.fields, { StillImage: data.fields.StillImage, URI: data.fields.URI });
-      if(!data.fields.StillImage) delete cur.data.fields.StillImage;
+      cur.data.fields = Object.assign({}, cur.data.fields, { ImageArray: data.fields.ImageArray, URI: data.fields.URI });
+      if(!data.fields.ImageArray) delete cur.data.fields.ImageArray;
       if(!data.fields.URI) delete cur.data.fields.URI;
+      if(Array.isArray(cur.data.fields.StillImage)) delete cur.data.fields.StillImage;
       cur.data._meta = Object.assign({}, cur.data._meta, { updated: new Date().toISOString() });
       await putEntry(id, cur.data, cur.sha, "Update photo fields for entry " + id);
     } else throw e;
@@ -1257,11 +1262,11 @@ async function buildSql(){
     const isImported = e => e._meta && e._meta.imported;
     const newE = entries.filter(e => !isImported(e));
     const updE = entries.filter(isImported);
-    const hasPhotoArrays = entries.some(e => Array.isArray((e.fields || {}).StillImage));
+    const hasPhotoArrays = entries.some(e => Array.isArray((e.fields || {}).ImageArray) || Array.isArray((e.fields || {}).StillImage));
     const alterNote = hasPhotoArrays
-      ? "-- NOTE: some rows carry a list of photo URLs in StillImage (repurposed field).\n" +
-        "-- The live table defines StillImage as char(1); widen it BEFORE running this SQL:\n" +
-        "--   ALTER TABLE `catalog` MODIFY `StillImage` VARCHAR(2000) DEFAULT NULL;\n\n"
+      ? "-- NOTE: some rows carry a list of photo URLs in the new ImageArray column.\n" +
+        "-- Add the column to the live table ONCE before the first upload that includes it:\n" +
+        "--   ALTER TABLE `catalog` ADD `ImageArray` VARCHAR(2000) DEFAULT NULL;\n\n"
       : "";
     const colList = "(" + COLUMNS.map(c => "`"+c+"`").join(", ") + ")";
     let body = "";
