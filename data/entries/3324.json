@@ -1,0 +1,28 @@
+{
+ "idnum": 3324,
+ "fields": {
+  "Title": "Columbia Data Products (MPC-1600VP?) Computer",
+  "Description": "Dual 5.25\" disk with built-in monitor and keyboard computer, IBM-PC reverse engineered clone",
+  "Creator": "Columbia Data Products",
+  "ModelNum": "964110",
+  "SerialNum": "CM10201",
+  "ItemCondition": "vg",
+  "Functional": "u",
+  "Fragility": "f",
+  "Color": "grey",
+  "Dimensions": "H 10, W 17, D 21",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-27T02:24:35.284Z",
+  "type": "hardware",
+  "updated": "2026-08-27T02:24:35.284Z"
+ }
+}
