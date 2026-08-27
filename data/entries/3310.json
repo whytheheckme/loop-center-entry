@@ -1,0 +1,29 @@
+{
+ "idnum": 3310,
+ "fields": {
+  "Title": "iMac (17-inch Flat Panel)",
+  "Description": "Lampshade iMac, bottom is split off and missing screws and bottom plate",
+  "Creator": "Apple",
+  "Created": "2003",
+  "ModelNum": "A6498",
+  "ItemCondition": "p",
+  "Functional": "n",
+  "ConditionNts": "Bottom is not connected",
+  "Fragility": "vf",
+  "Color": "white",
+  "Dimensions": "H 20, W 11, D 11",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-27T01:33:15.162Z",
+  "type": "hardware",
+  "updated": "2026-08-27T01:33:15.162Z"
+ }
+}
