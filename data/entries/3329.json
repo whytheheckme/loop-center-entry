@@ -1,0 +1,31 @@
+{
+ "idnum": 3329,
+ "fields": {
+  "Title": "Macintosh G4 Cube",
+  "Description": "G4 Cube with power supply",
+  "Creator": "Apple",
+  "WherMade": "Singapore",
+  "ModelNum": "M7886",
+  "SerialNum": "SG034D9FK59",
+  "ItemCondition": "f",
+  "Functional": "u",
+  "ConditionNts": "Dirty",
+  "Fragility": "f",
+  "Color": "clear/grey",
+  "Material": "p",
+  "Dimensions": "H 10, W 7, D 7",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-27T02:42:15.311Z",
+  "type": "hardware",
+  "updated": "2026-08-27T02:42:15.311Z"
+ }
+}
