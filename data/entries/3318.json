@@ -1,0 +1,30 @@
+{
+ "idnum": 3318,
+ "fields": {
+  "Title": "Epson 11\" Green Monitor",
+  "Description": "Green monitor for Epson machines, DIN video connector. With front screen polarizer",
+  "Creator": "Epson",
+  "WherMade": "Japan",
+  "ModelNum": "Q702A",
+  "SerialNum": "016350",
+  "ItemCondition": "g",
+  "Functional": "u",
+  "Fragility": "f",
+  "Color": "beige",
+  "Material": "mix",
+  "Dimensions": "H 10, W 11, D 13",
+  "Medium": "h",
+  "Collection": "2900",
+  "Type": "1",
+  "MediaType": "9",
+  "ItemType": "0",
+  "StillImage": "n",
+  "MovingImage": "n",
+  "CatBy": "jk"
+ },
+ "_meta": {
+  "created": "2026-08-27T02:03:02.425Z",
+  "type": "hardware",
+  "updated": "2026-08-27T02:03:02.426Z"
+ }
+}
