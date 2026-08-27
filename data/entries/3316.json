@@ -19,13 +19,17 @@
   "Type": "1",
   "MediaType": "9",
   "ItemType": "0",
-  "StillImage": "n",
+  "StillImage": [
+   "https://www.loopcntr.net/repository/3316.jpg",
+   "https://www.loopcntr.net/repository/3316-2.jpg"
+  ],
   "MovingImage": "n",
-  "CatBy": "jk"
+  "CatBy": "jk",
+  "URI": "https://www.loopcntr.net/repository/3316.jpg"
  },
  "_meta": {
   "created": "2026-08-27T01:56:42.790Z",
   "type": "hardware",
-  "updated": "2026-08-27T01:56:42.790Z"
+  "updated": "2026-08-27T01:57:23.353Z"
  }
 }
